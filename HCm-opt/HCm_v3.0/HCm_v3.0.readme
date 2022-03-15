@@ -1,0 +1,140 @@
+
+HII-CHI-mistry version 03.0 instructions
+Enrique Pérez-Montero. 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2017, September
+
+###############################################################
+
+1. INTRODUCTION
+-----------------------
+
+HII-CHI-mistry is a python program that calculates for gaseous 
+nebulae ionized by massive stars the oxygen abundance in terms 
+of 12+log(O/H), the nitrogen-to-oxygen ratio as log(N/O) and the 
+ionisation parameter, as log U, from a set of emission-line optical 
+intensities consistently with the direct method. The methodology 
+and the results are described in Pérez-Montero 2014, MNRAS, 441, 
+2663..
+
+Changes in relation to previous versions:
+
+v3.0:
+Now version 3.0 uses the errors of the relative intensity 
+emission lines to take them into account in the final erro calculation.
+This is now made by means of an iteration using random gaussian
+distributions around the mean value (Monte-Carlo).
+The number of iterations in the Monte-Carlo simulation can
+be edited in the script.
+
+The interpolation mode in version 3.0 is used only
+when a first estimation of the results are reached. This reduces
+the space of parameters to search and hence the time of calculation.
+
+v2.2:
+Version 2.2 changes the value of the parameter res_NO when the interpolated
+grid is used to avoid some divergences for the calculation of O/H.
+
+v2.1:
+From version 2.1 HCm uses the library numpy, so asciidata is not
+anymore required. the results are now stored in an independent
+ascii file. Finally this version lets the user to choose a model
+grid of better resolution in O/H and N/O to smooth results
+around the knots of the model grid. In addition, the program
+uses all the models for the weighted means of the results, not just
+a subset of them as in previous versions.
+
+In relation with previous version (2.0), version 2.1 fixes two
+bugs: i) it does not produce an error for sets for wich no abundance
+can be derived, and ii) it varies the size of the cells in the grid to
+calculate O/H from a certain N/O value when the interpolation is not used.
+
+###############################################################
+
+2. HOW TO RUN IT
+----------------
+
+HII-CHI-mistry has been written in python. It requires the library
+numpy. It also needs the files of the relative emission
+line intensities predicted by the models, assuming a different
+set of assumed conditions, including:
+
+C13_cha_1Myr_v2.0.dat
+C13-cha_1Myr_logU_adapted_emp_v2.0.dat
+C13-cha_1Myr_logU-NO_adapted_emp_v2.0.dat
+
+representing the whole set of models, limiting the values
+of log U at each Z, and limiting also the values of N/O, respectively.
+All were calculated with Cloudy v.13 and a POPSTAR SED 
+at an age of 1Myr with an IMF of Chabrier.
+
+And the same versions of the models with linear interpolation in O/H
+and N/O. These improve the resolution down to 0.02dex in O/H and
+0.025dex in N/O, but the calculation will drag out using these files.
+
+C13_cha_1Myr_v2.0int.dat
+C13-cha_1Myr_logU_adapted_emp_v2.0int.dat
+C13-cha_1Myr_logU-NO_adapted_emp_v2.0int.dat
+
+To run the program, just type
+
+> python HCm_v3.0.py
+
+Firstly, the program will ask you about the grid of models to use
+in the calculations: (1) non-interpolated or (2) interpolated.
+
+Then the program will ask you about your input file
+
+###################################################
+
+3. THE INPUT FILE
+-----------------
+
+It must be written in text format with ten columns containing in
+each row the following information about a gaseous nebula or a
+position of it:
+
+[OII] 3727/Hbeta and its error
+[OIII] 4363/Hbeta and its error
+[OIII] 5007/Hbeta and its error
+[NII] 6584/Hbeta and its error
+[SII] 6717+6731/Hbeta and its error
+
+all of them reddening corrected. If no information exists about
+a certain line it must typed as zero.
+It should be toed zero if the error is not known or if 
+it is not going to be taken into account in the calculations.
+
+
+####################################################
+
+
+3. RESULTS
+----------
+
+If the input file is correctly introduced, the program will
+calculate the wanted quantities and their corresponding errors.
+The information will be displayed in the screen for each object, along
+with the ratio of completeness of the task. It will be also added an index saying
+what grid was used, where
+
+1: the complete grid is used (only if [OIII] 4363 > 0)
+2: the log U limited grid is used (when [OIII] 4363 = 0)
+3: the log U and N/O limited grid is used
+(if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
+
+In addition the results will be saved in a file called output.dat.
+The first ten columns of this file will be the input emission lines 
+with their corresponding input errors and it will add the following 
+seven columns:
+
+grid index
+12+log(O/H)
+error of 12+log(O/H)
+log(N/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U
+error of log(U) (take with care if grid 2 or 3 are used)
+
+##########################################################
+

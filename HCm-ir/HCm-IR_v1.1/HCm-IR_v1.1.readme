@@ -1,0 +1,84 @@
+
+HII-CHI-mistry-IR version 1.1 instructions
+Enrique Pérez-Montero. 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2020 July
+###############################################################
+
+1. INTRODUCTION
+-----------------------
+
+HII-CHI-mistry-IR is a python program that calculates for gaseous nebulae ionized by massive stars, the oxygen abundance in terms of 12+log(O/H), the nitrogen-to-oxygen ratio as log(N/O) and the ionisation parameter, as log U, from a set of infra-red emission-line intensities consistently with the direct method. The methodology and the results are described inFernández-Ontiveros et al (2020). The architecture and methodology of the program are directly taken from the optical version of the program (version 4.2, see Pérez-Montero 2014).
+
+
+###############################################################
+
+2. HOW TO RUN IT
+----------------
+
+HII-CHI-mistry-IR is compatible with python versions 2 and 3. It requires the library numpy. It also needs the files of the relative emission line intensities predicted by the models, assuming a different set of conditions, including:
+
+C17_popstar_v1.1_ir.dat
+C17-popstar_logU_adapted_emp_v1.1_ir.dat
+C17-popstar_logU-NO_adapted_emp_v1.1_ir.dat
+
+representing the whole set of models, limiting the values of log U at each Z, and limiting also the values of N/O, respectively.
+All were calculated with Cloudy v.17 and a POPSTAR SED at an age of 1Myr with an IMF of Chabrier.
+
+To run the program, just type
+
+> python HCm-IR_v1.1.py
+
+It is possible to write the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm-IR_v1.1.py input.dat 100)
+
+Once the input file has been specified in the prompt or by direct question, the code will ask about the use of a interpolated high-resolution grid : (0) non-interpolated or (1) interpolated. This will enhance the resolution of the grid in O/H, N/O, and log U in a factor 10, but it will decrease the speed of calculation.
+
+
+###################################################
+
+3. THE INPUT FILE
+-----------------
+
+It must be written in text format with 24 columns containing in each row the following information about a gaseous nebula or a position of it:
+
+column 1 and 2: Hi 4.05 mic and its error
+column 3 and 4:Hi 7.46 mic and its error
+column 5 and 6: [SIV] 10.5 mic and its error
+column 7 and 8: HI 12.4 mic  and its error
+column 9 and 10: [NeII] 12.8 mic and its error
+column 11 and 12: [NeIII] 15.5 mic  and its error
+column 13 and 14: [SIII] 18.7 mic and its error
+column 15 and 16: [SIII] 33.7 mic and ist error
+column 17 and 18: [OIII] 52 mic and its error
+column 19 and 20: [NII] 57 mic and its error
+column 21 and 22: [OIII] 88 mic and its error
+column 23 and 24: [NII] 122 mic and its error
+
+all of them reddening corrected. If no information exists about a certain line it must typed as zero. It should be toed zero if the error is not known or if it is not going to be taken into account in the calculations. In this case it is advisable not using MonteCarlo iterations at all.
+
+
+####################################################
+
+
+4. RESULTS
+----------
+
+If the input file is correctly introduced, the program will calculate the wanted quantities and their corresponding errors. The information will be displayed in the screen for each object, along with the ratio of completeness of the task. It will be also added an index saying what grid was used, where
+
+1: the complete grid is used (only when an auroral line is used, so it is not available for IR)
+2: the log U limited grid is used 
+3: the log U and N/O limited grid is used (if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
+
+In addition the results will be saved in a file whose name is the name of the input file adding "_hcm-output.dat".
+The first 24 columns of this file will be the input emission lines with their corresponding input errors and it will add the following seven columns:
+
+grid index
+12+log(O/H)
+error of 12+log(O/H)
+log(N/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U
+error of log(U) (take with care if grid 2 or 3 are used)
+
+##########################################################
+

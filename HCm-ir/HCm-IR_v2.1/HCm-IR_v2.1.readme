@@ -1,0 +1,100 @@
+
+HII-CHI-mistry-IR version 2.1 instructions
+Enrique Pérez-Montero. 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2021 April
+###############################################################
+
+1. INTRODUCTION
+-----------------------
+
+HII-CHI-mistry-IR is a python program that calculates, for gaseous nebulae ionized by massive stars,, the oxygen abundance in terms of 12+log(O/H), the nitrogen-to-oxygen ratio as log(N/O) and the ionisation parameter, as log U, from a set of infra-red emission-line intensities consistently with the direct method. The methodology and the results are described inFernández-Ontiveros et al (2021). The architecture and methodology of the program are directly taken from the optical version of the program (version 4.2, see Pérez-Montero 2014).
+
+Changes in relation to previous versions
+
+Version 2.1
+The emission line [NII] at 205 microns has been incorporated to the models, so it can be used for the N23, N2N3 and O3N2 observables to calculate   of O/H and U. 
+The program now incorporates models built with BPASS model atmospheres, suitable for its use for Extreme Emission Line Galaxies as discussed in Pérez-Montero et al (2021).
+
+
+version 2.01
+A bug related with the treatment of the error for [NII] 122m line has been fixed
+
+Version 2.0
+Now HCm-IR admit labels for the different columns, so an ID for each row can be included and not all of the possible emission lines and their errors must be included.
+###############################################################
+
+2. HOW TO RUN IT
+----------------
+
+HII-CHI-mistry-IR is compatible with python versions 2 and 3. It requires the library numpy. It also needs the files of the relative emission line intensities predicted by the models, assuming a different set of conditions, including:
+
+C17_popstar_ir_v2.0.dat
+C17-popstar_logU_adapted_emp_ir_v2.0.dat
+C17-popstar_logU-NO_adapted_emp_ir_v2.0.dat
+
+representing the whole set of models, limiting the values of log U at each Z, and limiting also the values of N/O, respectively.
+All were calculated with Cloudy v.17 and a POPSTAR SED at an age of 1Myr with an IMF of Chabrier. In addition, there are libraries for models calculated using BPASS v2.1 synthetic atmospheres with binaries assuming an instantaneous burst at 1 Myr, with an IMF with x = -1.35 and an upper mass limit of 300 solar masses:
+
+C17_bpass_ir_v2.0.dat
+C17_bpass_logU_adapted_emp_ir_v2.0.dat
+C17_bpass_logU-NO_adapted_emp_ir_v2.0.dat
+
+To run the program, just type
+
+> python HCm-IR_v2.1.py
+
+It is possible to write the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm-IR_v2.0.py input.dat 100)
+
+
+###################################################
+
+3. THE INPUT FILE
+-----------------
+
+It must be written in plain text format. The first row must specify the labels of the columns. These  must contain in each row the fluxes of the used emission lines. The following labels can be read by the code:
+
+'ID': Identification name
+'HI_4m' and 'eHI_4m': Hi 4.05 mic and its error
+'HI_7m' and 'eHI_7m':Hi 7.46 mic and its error
+'SIV_10m' and 'eSIV_10m': [SIV] 10.5 mic and its error
+'HI_12m' and 'eHI_12m': HI 12.4 mic  and its error
+'NeII_12m' and 'eNeII_12m': [NeII] 12.8 mic and its error
+'NeIII_15m' and 'eNeIII_15m': [NeIII] 15.5 mic  and its error
+'SIII_18m' and 'eSIII_18m': [SIII] 18.7 mic and its error
+'SIII_33m' and 'eSIII_33m': [SIII] 33.7 mic and ist error
+'OIII_52m' and 'eOIII_52m': [OIII] 52 mic and its error
+'NIII_57m' and 'eNIII_57m': [NII] 57 mic and its error
+'OIII_88m' and 'eOIII_88m': [OIII] 88 mic and its error
+'NII_122m' and 'eNII_122m': [NII] 122 mic and its error
+'NII_205m' and 'eNII_205m': [NII] 205 mic and its error
+
+
+all of them reddening corrected. Not all columns are mandatory but, if no information exists about a certain line, it must typed as zero. It should be typed zero if the error is not known or if it is not going to be taken into account in the calculations. In this case it is advisable not using MonteCarlo iterations at all.
+
+
+####################################################
+
+
+4. RESULTS
+----------
+
+If the input file is correctly introduced, the program will ask for the chosen grid of models and the possible use of interpolations for the grid. Then, it will calculate the wanted quantities and their corresponding errors. The information will be displayed in the screen for each object, along with the ratio of completeness of the task. It will be also added an index saying what grid was used, where
+
+1: the complete grid is used (only when an auroral line is used, so it is not available for IR)
+2: the log U limited grid is used 
+3: the log U and N/O limited grid is used (if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
+
+In addition the results will be saved on a file whose name is the name of the input file adding "_hcm-ir-output.dat".
+The first column will denote the ID given for each row. If this is not specified in the input file, a number will be used instead. The following 24 columns of this file will be the possible input emission lines with their corresponding input errors and it will add the following seven columns:
+
+grid index
+12+log(O/H)
+error of 12+log(O/H)
+log(N/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U
+error of log(U) (take with care if grid 2 or 3 are used)
+
+##########################################################
+

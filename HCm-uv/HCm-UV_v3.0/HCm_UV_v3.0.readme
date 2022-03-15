@@ -1,0 +1,112 @@
+
+HII-CHI-mistry_UV  version 3.0 instructions
+Enrique Pérez-Montero. 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2017, September
+
+###############################################################
+
+1. INTRODUCTION
+-----------------------
+
+HII-CHI-mistry_UV is a python program that calculates for gaseous 
+nebulae ionised by massive stars the oxygen abundance in terms 
+of 12+log(O/H), the carbon-to-oxygen ratio as log(C/O) and the 
+ionisation parameter, as log U, from a set of emission-line UV 
+and optical intensities consistently with the direct method. 
+The methodology and the results are described in Pérez-Montero
+& Amorín (2016)..
+
+Changes in relation to previous versions:
+
+v3.0:
+It now takes into account the relative intensity errors
+of the inpu lines in the calculation of the derived
+quantities. To do so, the program now performs a set
+of iterations using random gaussian deviations around the
+mean intensity value (Monte-Carlo). The number of iterations
+in the calculation can be edited in the script file.
+
+
+###############################################################
+
+2. HOW TO RUN IT
+----------------
+
+HII-CHI-mistry_UV has been written in python. It requires the library
+numpy. It also needs the files of the emission
+line fluxes predicted by the models, assuming a different
+set of input conditions, including:
+
+C13_cha_1Myr_v2.0_uv.dat
+C13-cha_1Myr_logU_adapted_emp_v2.0_uv.dat
+C13-cha_1Myr_logU-NO_adapted_emp_v2.0_uv.dat
+
+representing the whole set of models, the models with constrained
+values of O/H as a function of log U, and the models with constrained
+values of O/H as a function of C/O, respectively.
+
+All were calculated with Cloudy v.13 and a POPSTAR SED 
+with an age of 1Myr and using an IMF of Chabrier.
+
+To run the program, just type
+
+> python HCm_UV_v3.0.py
+
+The program will ask for the input file
+
+###################################################
+
+3. THE INPUT FILE
+-----------------
+
+It must be written in text format with twelve columns containing in
+each row the extintction-corrected fluxes in arbitrary units and 
+their corresponding errors of the following emission lines for 
+single gaseous nebula or a position of it:
+
+Lya HI 1216 and its error
+CIV    1549 and its error
+OIII]  1665 and its error
+CIII   1909 and its error
+Hb HI  4861 and its error
+[OIII] 5007 and its error
+
+all of them reddening corrected. If no information exists about
+a certain line it must typed as zero. Notice that contrary to
+HII-CHI-mistry for the optical the lines do not have to be relative
+to Hbeta flux. If an error is unknown or it is not going to be
+used in the calculations it must also typed as zero in the input file.
+
+####################################################
+
+
+3. RESULTS
+----------
+
+If the input file is correctly introduced, the program will
+calculate the required quantities and their corresponding errors.
+The information will be displayed in the screen for each object, along
+with the ratio of completeness of the task. It will be also added an index saying
+what grid was used, where
+
+1: the complete grid is used (only if [OIII] 1665/5007 can be used).
+2: the log U limited grid is used (when [OIII] 1665/5007 is not available)
+3: the log U and C/O limited grid is used
+(if, besides, CIII/OIII] cannot be obtained).
+
+In addition the results will be saved in a file called output.dat.
+The first twelve columns of this file will be the input emission 
+lines with their corresponding input errors and
+it will add the following seven columns:
+
+grid index
+12+log(O/H)
+error of 12+log(O/H)
+log(C/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U
+error of log(U) (take with care if grid 2 or 3 are used)
+
+##########################################################
+

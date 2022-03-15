@@ -1,0 +1,103 @@
+
+HII-CHI-mistry version 01 instructions
+Enrique Pérez-Montero. 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2014, March
+
+###############################################################
+
+1. INTRODUCTION
+-----------------------
+
+HII-CHI-mistry is a python program that calculates the oxygen
+abundance in terms of 12+log(O/H), the nitrogen-to-oxygen ratio
+as log(N/O) and the ionisation parameter, as log U, from a set
+of emission-line optical intensities consistently with the direct 
+method. The methodology and the results are described in 
+Pérez-Montero (submitted).
+
+###############################################################
+
+2. HOW TO RUN IT
+----------------
+
+HII-CHI-mistry has been written in python. It requires the library
+astroasciidata. It also needs the files of the relative emission
+line intensities predicted by the models, assuming a different 
+set of assumed conditions, including:
+
+C13_cha_1Myr.dat
+C13-cha_1Myr_logU_adapted_emp.dat
+C13-cha_1Myr_logU-NO_adapted_emp.dat
+
+representing the whole set of models, limiting the values
+of log U at each Z, and limiting also the values of N/O, respectively.
+All were calculated with Cloudy v.13 and a POPSTAR SED 
+at an age of 1Myr with an IMF of Chabrier.
+
+To run the program, just type
+
+> python HII-CHI-mistry_v01.py
+
+And the program will ask you about your input file
+
+###################################################
+
+3. THE INPUT FILE
+-----------------
+
+It must be written in text format with five columns containing in
+each row the following information about a gaseous nebula or a
+postion of it:
+
+[OII] 3727/Hbeta
+[OIII] 4363/Hbeta
+[OIII] 5007/Hbeta
+[NII] 6584/Hbeta
+[SII] 6717+6731/Hbeta
+
+all of them reddening corrected. If no information exists about
+a certain line it must typed as zero.
+
+
+####################################################
+
+
+3. RESULTS
+----------
+
+If the input file is correctly introduced, the program will
+calculate the wanted quantities and their corresponding errors.
+The information will be displayed in the screen for each object, along
+with the ratio of completeness of the task. It will be also added an index saying
+what grid was used, where
+
+1: the complete grid is used (only if [OIII] 4363 > 0)
+2: the log U limited grid is used (when [OIII] 4363 = 0)
+3: the log U and N/O limited grid is used
+(if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
+
+In addition seven new columns will be added to the input file  with the
+following information:
+
+grid index
+12+log(O/H)
+error of 12+log(O/H)
+log(N/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U
+error of log(U) (take with care if grid 2 or 3 are used)
+
+##########################################################
+
+4. ADDITIONAL FEATURES
+
+The used grids can be easily changed by replacing them
+in the .py file. Besides some calculation features can be changed
+in order to improve the accurateness or the calculation time.
+For example, the following starting variables can be edited also in the .py file:
+
+nmod - number of models considered to calculate a weighted mean
+ntol - step in tolerance added to the minimum value if nmod is not reached
+tol_max - maximum tolerance to calculate a weighted mean
+mod_miin - minimum number of models to calculate a mean if the maximum tolerance is reached.

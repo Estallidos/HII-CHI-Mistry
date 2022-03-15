@@ -1,0 +1,66 @@
+HII-CHI-mistry-Teff version 4.1 INSTRUCTIONs
+
+1. DESCRIPTION
+
+HCm-Teff is a python script that helps to calculate the ionization parameter (log U) and the equivalent  effective temperature (T*) using relative emission-line fluxes emitted by ionized gaseous nebulae. From version 4 it can also be used to estimate the number of absorbed photons in a density-bounded geometry (see Pérez-Montero et al. 2020).
+
+The code is described in Perez-Montero et al. (2019.)
+
+2. Version history
+
+
+version 4.1
+Now emission-line of HeI at 4471 AA can be used. All grids have been extended down to log U = -4.0. Interpolation of the grid of models can be used too.
+
+Version 4.0.
+Lines of HeiI at 5876 and HeII 4686 are now included to better explore high-energy sources (see Pérez-Montero et al. 2020). In addition, the code now includes BPASS v.2.1 density-bounded models and can provide estimates for the absorption fraction of ionizing photons Te code now also considers ionizing sources from black bodies at different temperatures.
+
+version 3.1
+The code considers [SII][OIII] as observable too when the when either [OII]/[OIII] or [SII]/[SIII]  are not seen.
+
+Version 3.0. Now the code allows to choose among models calculated using a plane-parallel or a spherical geometry. In addition the resolution of the grid in ionization parameter has been improved. Now the output file provides more information.
+
+Version 2.0 calculates errors using a MonteCarlo iteration from the input error line fluxes. The number of iterations can be easily edited in the python file. In addition, the mean of the errors of  the  Chi-square distribution is quadratically adde to the Monte  Carlo error.  If not, when no errors are introduced for the lines the final error is too small.
+
+3. How to run it
+
+HCm-Teff has been written in python v.2.7, but it can also be ran in python 3. It requires the library numpy. It also needs the files of the  emission line fluxes predicted by the models, assuming a different set of input conditions and for two different geometries. The necessary files are: 
+C17_WMb_Teff_30-60_pp.dat C17_WMb_Teff_30-60_sph.dat C17_bb_Teff_30-90_pp.dat C17_bb_Teff_30-90_sph.dat
+C17_bpass_135_300_esc_sph_4Myr.dat 
+representing the whole set of models for different SEDs and geometries as a function of log U,  and T*. All were calculated with Cloudy v.17 and WM-basic  single-star, black body, and cluster atmospheres for different density-bounded geometries SEDs .  
+To run the program, just type for version 4.1  > python HCm-Teff_v4.1.py 
+The program will ask for the input file with the required emission line and their errors and then it will ask for the SED and the geometry of the models we want to use. 
+
+From version 4, it is possible to add directly in the prompt the name of the input file and the number of Montecarlo iterations required in each calculation.
+
+4. The input file
+
+The input file is a plain text file with 16 columns. Each row corresponds to one of the objects or pointings  for which we want the code to perform the calculations. The 16 columns must have the following information:
+
+1 and 2: 12+log(O/Hand error ) (if known)
+3 and 4: [OII] 3727 / Hbeta and error
+5 and 6: [OIII] 5007/Hbeta and error
+7 and 8: [SII] 6717+6731/Hbeta and error
+9 and 10: [SIII] 9069/Hbeta and error
+11 and 12: HeI 4471/Hbeta with  error
+13 and 14: HeI 5876/Hbeta with  error
+15 and 16: heII 4686/Hbeta with error
+
+The metallicity is not mandatory so if it is not known a 0 can be typed instead, but the uncertainty  in the final calculation will be larger. Regarding lines the routine will only provide a  calculation if at least one of the three doublets is given (e.g. [OII] and [OIII] and/or [SII] and [SIII]). If only two low-excitation or high-excitation lines  are given the program will provide 0 values in the results.
+
+The lines must be reddening corrected and expressed in relation to Hbeta.
+
+Only one of the [OIII] doublet lines (5007) and one of the [SIII] lines (9069) is required for the calculation. If one of the other lines (4959 or 9532) are  known this can be easily taken into the account for an average input line using the theoretical ratios between the [OIII] or [SIII] nebular lines.
+
+5. RESULTS
+
+If the input file is correctly introduced, the program will ask about the chosen SED and geometry and it will calculate  the required quantities and their  corresponding errors. The information will be displayed in the screen for each object, along 
+with the ratio of completeness of the task.  
+In addition, the results will be saved in a file whose name is the same of the input file with the extension "_hcm-output.dat" The first 16 columns of this file will be the input emission lines and the input metallicity. It will add the following four columns:  Effective temperature in K
+error of effective temperature in K
+log(U) error of log(U) (
+
+Although the Teff columns will e replaced by calculations for f_abs if this is required. 
+-------------------------
+Enrique Pérez Montero
+September, 2020
