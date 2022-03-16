@@ -162,7 +162,7 @@ The output file is also a text format, named with the original name of the input
 - 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty{4}.
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
-{4} **Note**: If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons) if required.
+{4} **Note**: If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
 
 ## Contact
 
