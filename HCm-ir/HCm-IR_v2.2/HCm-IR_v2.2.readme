@@ -121,13 +121,12 @@ ID: Identification name for each row
 'SIII_18m' and 'eSIII_18m': [SIII] 18.7 mic and its error
 'NeV_24m' and 'eNeV_24m': [NeV] 24.2 mic  and its error
 'OIV_25m' and 'eOIV_25m': [OIV] 25.9 mic  and its error
-'SIII_33m' and 'eSIII_33m': [SIII] 33.7 mic and ist error
+'SIII_33m' and 'eSIII_33m': [SIII] 33.7 mic and its error
 'OIII_52m' and 'eOIII_52m': [OIII] 52 mic and its error
 'NIII_57m' and 'eNIII_57m': [NII] 57 mic and its error
 'OIII_88m' and 'eOIII_88m': [OIII] 88 mic and its error
 'NII_122m' and 'eNII_122m': [NII] 122 mic and its error
 'NII_205m' and 'eNII_205m': [NII] 205 mic and its error
-OIII_5007 and eOIII_5007: [OIII] 5007 and its error
 
 all of them reddening corrected. If no information exists about a certain line it must typed as zero or not introduced in the input file. It should be toed zero (or not introduced in the input file) if the error is not known or if it is not going to be taken into account in the calculations. In this case it is advisable not using MonteCarlo iterations at all.
 

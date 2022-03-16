@@ -51,7 +51,7 @@ Finally, the program will ask about the use of an interpolated high-resolution g
 It must be written in text format with a first row of labels indicating some or all of the following columns: 
 
 ID: identification name
-12logOH and e12logOH: 12+log(O/Hand error ) (if known)
+12logOH and e12logOH: 12+log(O/H) and its error (if known)
 OII_3727 and eOII_3727: [OII] 3727 / Hbeta and error
 OIII_4959 and eOIII_4959: [OIII] 4959/Hbeta and error
 OIII_5007 and eOIII_5007: [OIII] 5007/Hbeta and error. It is possible to use only one of the two strong nebular [OIII] emission lines.

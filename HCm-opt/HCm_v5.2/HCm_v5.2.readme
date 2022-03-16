@@ -51,7 +51,7 @@ C17_BPASS_IMF135_mup300_1myr.dat
 
 These libraries and any other additional library supplied by the user must be stored under the folder "Libraries_opt". Do not delete default libraries.
 
-
+O
 2.2. CONSTRAINTS
 
 When there is not enough information to estimate O/H, N/O and U independently, the code constraints the grid of models by assuming certain relations between these quantities. These relations must be indicated in the form of tables with the following columns (do not change column labels):
