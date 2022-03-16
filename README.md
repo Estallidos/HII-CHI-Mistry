@@ -6,7 +6,7 @@ HII-CHI-Mistry is a collection of python subroutines aimed at the calculation of
 
 ### Python Packages
 
-HII-CHI-Mistry was written for [Python v.2.7](https://www.python.org/download/releases/2.7/), but since its latest versions it is also compatible with [Python v.3.](https://www.python.org/download/releases/3.0/). It requires the Python library [NumPy](https://numpy.org).
+HII-CHI-Mistry was written for [Python v.2.7](https://www.python.org/download/releases/2.7/), but since its latest versions it is also compatible with [Python v.3](https://www.python.org/download/releases/3.0/). It requires the Python library [NumPy](https://numpy.org).
 
 ### Libraries
 
@@ -156,7 +156,7 @@ The input file must be written in text format with a first row of labels indicat
 
 The above emission lines must be reddening corrected. In case no errors are provided, it is advisable not using MonteCarlo iterations at all. All comments must be placed at the beginning of the document preceded by the symbol "#".
 
-The output file is also a text format, named with the original name of the input file and followed by the extension "_hcm-ir-output.dat". The first columns will show the information provided in the input file. In case ID column is missing, the code will automatically assign a cardinal to each row. The last seven columns show:
+The output file is also a text format, named with the original name of the input file and followed by the extension "_hcm-teff-output.dat". The first columns will show the information provided in the input file. In case ID column is missing, the code will automatically assign a cardinal to each row. The last seven columns show:
 
 - 'O/H' and 'eO/H': estimation or input value of the oxygen abundance 12+log(O/H) and its uncertainty.
 - 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty{4}.
