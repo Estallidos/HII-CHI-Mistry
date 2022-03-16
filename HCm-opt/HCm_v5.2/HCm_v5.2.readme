@@ -132,8 +132,7 @@ If the input file is correctly introduced, the program will calculate the wanted
 2: the log U limited grid is used (when [OIII] 4363 = 0)
 3: the log U and N/O limited grid is used (if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
 
-In addition the results will be saved in a file whose name is the name of the input file adding "_hcm-output.dat".
-The first column is the identification of each row. A number will be used instead if this has not been supplied in the input file. The next columns show the emission lines introduced in the input file and their corresponding errors. The last seven columns show:
+In addition the results will be saved in a file whose name is the name of the input file adding "_hcm-output.dat". The first column is the identification of each row. A number will be used instead if this has not been supplied in the input file. The next columns show the emission lines introduced in the input file and their corresponding errors. The last seven columns show:
 
 grid index 
 12+log(O/H)
