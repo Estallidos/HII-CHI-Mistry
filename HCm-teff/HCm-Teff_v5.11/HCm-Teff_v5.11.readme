@@ -1,4 +1,4 @@
-HII-CHI-mistry-Teff version 5.1 instructions
+HII-CHI-mistry-Teff version 5.11 instructions
 Enrique Pérez-Montero & Borja Pérez-Díaz 
 Instituto de Astrofísica de Andalucía. IAA-CSIC
 2022 January
@@ -51,7 +51,7 @@ Finally, the program will ask about the use of an interpolated high-resolution g
 It must be written in text format with a first row of labels indicating some or all of the following columns: 
 
 ID: identification name
-12logOH and e12logOH: 12+log(O/H) and its error (if known)
+12logOH and e12logOH: 12+log(O/Hand error ) (if known)
 OII_3727 and eOII_3727: [OII] 3727 / Hbeta and error
 OIII_4959 and eOIII_4959: [OIII] 4959/Hbeta and error
 OIII_5007 and eOIII_5007: [OIII] 5007/Hbeta and error. It is possible to use only one of the two strong nebular [OIII] emission lines.
@@ -89,8 +89,8 @@ Although the Teff columns will e replaced by calculations for f_abs if this is r
 
 6. HISTORY AND UPDATES
 
-- Version 5.1 (2022/01):
-Libraries with models are stored in particular folders. Changes in the code to optimize the reading of the files. The output file no longer shows columns with emission lines that were not introduced as inputs.
+- Version 5.11 (2022/04):
+Libraries with models are stored in particular folders. Changes in the code to optimize the reading of the files. The output file no longer shows columns with emission lines that were not introduced as inputs. Some bugs found in version 5.1 related with the writing of the output when [SII] and [πSIII] lines are given separately have been fixed. Interpolation for models for the calculation of absorption factor is now allowed.
 
 - Version 5.01:
 This version allows to use labels in the input file to provide identifications for each row. In addition, not all lines and errors must be now introduced in the input file. A bug related with observations with HeII = 0 has been fixed from version 5.0, which has been retired.

@@ -1,4 +1,4 @@
-# Filename: HCm-Teff_v5.1.py
+# Filename: HCm-Teff_v5.11.py
 
 import string
 import numpy as np
@@ -14,7 +14,7 @@ def interpolate(grid,z,zmin,zmax,n,sed_t):
       file_1 = 'C17_WMb_Teff_30-60_pp.dat'
    else:
       label_t = 'f_abs'
-      file_1 = 'C17_bpass21_imf135_300_pp_esc.dat'
+      file_1 = 'C17_bpass21_imf135_300_sph_esc.dat'
    n_comments = 0
    with open('Libraries_teff/'+file_1, 'r') as file1:
       for line in file1:
@@ -62,7 +62,7 @@ def interpolate(grid,z,zmin,zmax,n,sed_t):
 
 
 print (' ---------------------------------------------------------------------')
-print ('This is HII-CHI-mistry-Teff v. 5.1')
+print ('This is HII-CHI-mistry-Teff v. 5.11')
 print (' See Perez-Montero et al (2019) for details')
 print ( ' Insert the name of your input text file with all or some of the following columns:')
 print ('12+log(O/H)')
@@ -443,11 +443,11 @@ for col in range(0,len(input1.dtype.names),1):
       Label_SII = True
    if input1.dtype.names[col] == 'eSII_6725':
       Label_eSII = True
-   if input1.dtype.names[col] == 'SII_6717':
+   if input1.dtype.names[col] == 'SII_6716':
       Label_SII_6716 = True
    if input1.dtype.names[col] == 'SII_6731':
       Label_SII_6731 = True
-   if input1.dtype.names[col] == 'eSII_6717':
+   if input1.dtype.names[col] == 'eSII_6716':
       Label_eSII_6716 = True
    if input1.dtype.names[col] == 'eSII_6731':
       Label_eSII_6731 = True
@@ -493,12 +493,20 @@ if Label_eOII == False:
    eOII_3727 = np.zeros(input1.size)
 else:
    eOII_3727 = input1['eOII_3727']
+if Label_OIII_4959 == False:
+   OIII_4959 = np.zeros(input1.size)
+else:
+   OIII_4959 = input1['OIII_4959']
+if Label_eOIII_4959 == False:
+   eOIII_4959 = np.zeros(input1.size)
+else:
+   eOIII_4959 = input1['eOIII_4959']
 if Label_OIII_4959 == False and Label_OIII_5007 == False:
    OIII_5007 = np.zeros(input1.size)
 elif Label_OIII_4959 == False and Label_OIII_5007 == True:
    OIII_5007 = input1['OIII_5007']
 elif Label_OIII_4959 == True and Label_OIII_5007 == False:
-   OIII_5007 = 4*input1['OIII_4959']
+   OIII_5007 = 3*input1['OIII_4959']
 else:
    OIII_5007 = (input1['OIII_5007']+input1['OIII_4959'])/1.33
 if Label_eOIII_4959 == False and Label_eOIII_5007 == False:
@@ -506,7 +514,7 @@ if Label_eOIII_4959 == False and Label_eOIII_5007 == False:
 elif Label_eOIII_4959 == False and Label_eOIII_5007 == True:
    eOIII_5007 = input1['eOIII_5007']
 elif Label_eOIII_4959 == True and Label_eOIII_5007 == False:
-   eOIII_5007 = 4*input1['eOIII_4959']
+   eOIII_5007 = 3*input1['eOIII_4959']
 else:
    eOIII_5007 = (input1['eOIII_5007']+input1['eOIII_4959'])/1.33
 if Label_SII == False and (Label_SII_6716 == False or Label_SII_6731 == False):
@@ -514,17 +522,29 @@ if Label_SII == False and (Label_SII_6716 == False or Label_SII_6731 == False):
 elif Label_SII == True:
    SII_6725 = input1['SII_6725']
 else:
-   SII_6725 = input1['SII_6717']+input1['SII_6731']
+   SII_6725 = input1['SII_6716']+input1['SII_6731']
 if Label_eSII == False and (Label_eSII_6716 == False or Label_eSII_6731 == False):
    eSII_6725 = np.zeros(input1.size)
 elif Label_eSII == True:
    eSII_6725 = input1['eSII_6725']
 else:
-   eSII_6725 = input1['eSII_6717']+input1['eSII_6731']
+   eSII_6725 = input1['eSII_6716']+input1['eSII_6731']
+if Label_SII_6716 == False:
+   SII_6716 = np.zeros(input1.size)
+else:
+   SII_6716 = input1['SII_6716']
+if Label_eSII_6716 == False:
+   eSII_6716 = np.zeros(input1.size)
+else:
+   eSII_6716 = input1['eSII_6716']
+if Label_SII_6731 == False:
+   SII_6731 = np.zeros(input1.size)
+else:
+   SII_6731 = input1['SII_6731']
 if Label_SIII_9069 == False and Label_SIII_9532 == False:
    SIII_9069 = np.zeros(input1.size)
 elif Label_SIII_9069 == False and Label_SIII_9532 == True:
-   SIII_9069 = input1['SIII_9069']/2.44
+   SIII_9069 = input1['SIII_9532']/2.44
 elif Label_SIII_9069 == True and Label_SIII_9532 == False:
    SIII_9069 = input1['SIII_9069']
 else:
@@ -532,11 +552,19 @@ else:
 if Label_eSIII_9069 == False and Label_eSIII_9532 == False:
    eSIII_9069 = np.zeros(input1.size)
 elif Label_eSIII_9069 == False and Label_eSIII_9532 == True:
-   eSIII_9069 = input1['eSIII_9069']/2.44
+   eSIII_9069 = input1['eSIII_9532']/2.44
 elif Label_eSIII_9069 == True and Label_eSIII_9532 == False:
    eSIII_9069 = input1['eSIII_9069']
 else:
    eSIII_9069 = (input1['eSIII_9069']+input1['eSIII_9532'])/3.44
+if Label_SIII_9532 == False:
+   SIII_9532 = np.zeros(input1.size)
+else:
+   SIII_9532 = input1['SIII_9532']
+if Label_eSIII_9532 == False:
+   eSIII_9532 = np.zeros(input1.size)
+else:
+   eSIII_9532 = input1['eSIII_9532']
 if Label_HeI_4471 == False:
    HeI_4471 = np.zeros(input1.size)
 else:
@@ -583,9 +611,9 @@ if Label_SII == True:
 if Label_eSII == True:
    aux_list.append(('eSII_6725', float))
 if Label_SII_6716 == True:
-   aux_list.append(('SII_6717', float))
+   aux_list.append(('SII_6716', float))
 if Label_eSII_6716 == True:
-   aux_list.append(('eSII_6717', float))
+   aux_list.append(('eSII_6716', float))
 if Label_SII_6731 == True:
    aux_list.append(('SII_6731', float))
 if Label_eSII_6731 == True:
@@ -653,9 +681,9 @@ if Label_SII == True:
 if Label_eSII == True:
    output['eSII_6725'] = eSII_6725
 if Label_SII_6716 == True:
-   output['SII_6717'] = SII_6716
+   output['SII_6716'] = SII_6716
 if Label_eSII_6716 == True:
-   output['eSII_6717'] = eSII_6716
+   output['eSII_6716'] = eSII_6716
 if Label_SII_6731 == True:
    output['SII_6731'] = SII_6731
 if Label_eSII_6731 == True:
@@ -1002,10 +1030,11 @@ for tab in range(0,len(input1),1):
             logU = logU
          elif inter == 1:
             igrid = grid_T[np.lexsort((grid_T['12logOH'],grid_T['logUsp']))]
-            igrid = interpolate(igrid,1,Teff-eTeff-1e4,Teff+eTeff+1e4,10, sed)
             if sed != 3:
+               igrid = interpolate(igrid,1,Teff-eTeff-1e4,Teff+eTeff+1e4,10, sed)
                igrid = igrid[np.lexsort((igrid['12logOH'],igrid['Teff']))]
             else:
+               igrid = interpolate(igrid,1,0,1,10, sed)
                igrid = igrid[np.lexsort((igrid['12logOH'],igrid['f_abs']))]
             igrid = interpolate(igrid,2,logU-elogU-0.25,logU+elogU+0.25,10, sed)
 
@@ -1147,20 +1176,23 @@ output['elogU'] = elogUffs
 if input0.size == 1:  output = np.delete(output,obj=1,axis=0)
 
 
-lineas_header = [' HII-CHI-mistry-Teff v.5.1 output file', 'Input file:'+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type, 'Library file used : '+file_lib, '']
+lineas_header = [' HII-CHI-mistry-Teff v.5.11 output file', 'Input file:'+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type, 'Library file used : '+file_lib, '']
 
 line_label = '{:10}  '.format(output.dtype.names[0])
-for ind2 in range(1, len(output.dtype.names)-7):
+
+for ind2 in range(1, len(output.dtype.names)-6):
    line_label += '{:10}  '.format(output.dtype.names[ind2])
 
 if sed != 3:
-   line_label += '{:10}   {:10}   {:10}   {:10}   {:10}   {:10}   {:10}'.format('i', 'O/H',    'eO/H',  'Teff' ,   'eTeff' , 'logU',   'elogU')
+   line_label += '{:10}   {:10}   {:10}   {:10}   {:10}   {:10}'.format('O/H',    'eO/H',  'Teff' ,   'eTeff' , 'logU',   'elogU')
 else:
-   line_label += '{:10}   {:10}   {:10}   {:10}   {:10}   {:10}   {:10}'.format('i', 'O/H',    'eO/H',  'f_abs' ,   'ef_abs' , 'logU',   'elogU')
-
+   line_label += '{:10}   {:10}   {:10}   {:10}   {:10}   {:10}'.format('O/H',    'eO/H',  'f_abs' ,   'ef_abs' , 'logU',   'elogU')
 lineas_header.append(line_label)
 header = '\n'.join(lineas_header)
-np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(output.dtype.names)-8)+['%i']+['%.2f']*6), header=header)
+if sed != 3:
+   np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(output.dtype.names)-7)+['%.2f']*2+['%i']*2+['%.2f']*2), header=header)
+else:
+   np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(output.dtype.names)-7)+['%.2f']*2+['%.2f']*2+['%.2f']*2), header=header)
 
 lines_stor = []
 with open('.'.join(input00.split('.')[:-1])+'_hcm-output.dat', 'r+') as output_file:

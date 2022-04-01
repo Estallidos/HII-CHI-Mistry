@@ -28,7 +28,7 @@ HII-CHI-Mistry presents different variations depending on the spectral range ana
 
 ### HII-CHI-Mistry optical range (HCm-opt)
 
-The latest version available is HII-CHI-Mistry [v.5.21](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.21). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.21/HCm_v5.21.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry [v.5.22](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.22). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.22/HCm_v5.22.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero 2014](https://ui.adsabs.harvard.edu/abs/2014MNRAS.441.2663P/abstract)).
 - Version for Seyferts 2 ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.489.2652P/abstract)).
@@ -49,7 +49,7 @@ The latest version available is HII-CHI-Mistry-IR [v.3.0](https://github.com/Bor
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
-The latest version available is HII-CHI-Mistry-Tefff [v.5.1](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.1). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.1/HCm-Teff_v5.1.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-Tefff [v.5.11](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.11). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.11/HCm-Teff_v5.11.readme). The code is described in the following papers:
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))

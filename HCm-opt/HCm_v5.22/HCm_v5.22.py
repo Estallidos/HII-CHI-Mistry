@@ -1,4 +1,4 @@
-# Filename: HCm_v 5.21.py
+# Filename: HCm_v 5.22.py
 
 #####################
 ###### IMPORTS ######
@@ -65,7 +65,7 @@ def interpolate(grid,z,zmin,zmax,n):
 
 #Description of the code
 print ('-------------------------------------------------')
-print ('This is HII-CHI-mistry v. 5.21')
+print ('This is HII-CHI-mistry v. 5.22')
 print (' See Perez-Montero, E. (2014) and Perez-Montero et al. (2019, 2021) for details')
 print (' Insert the name of your input text file with all or some of the following columns:')
 print ('')
@@ -889,7 +889,7 @@ if Label_OIII_4959 == False and Label_OIII_5007 == False:
 elif Label_OIII_4959 == False and Label_OIII_5007 == True:
    OIII_5007 = input1['OIII_5007']
 elif Label_OIII_4959 == True and Label_OIII_5007 == False:
-   OIII_5007 = 3*input1['eOIII_4959']
+   OIII_5007 = 3*input1['OIII_4959']
 else:
    OIII_5007 = (input1['OIII_5007']+input1['OIII_4959'])/1.33
 if Label_eOIII_4959 == False and Label_eOIII_5007 == False:
@@ -920,6 +920,22 @@ elif Label_eSII == True:
    eSII_6725 = input1['eSII_6725']
 else:
    eSII_6725 = input1['eSII_6716']+input1['eSII_6731']
+if Label_SII_6716 == False:
+   SII_6716 = np.zeros(input1.size)
+else:
+   SII_6716 = input1['SII_6716']
+if Label_eSII_6716 == False:
+   eSII_6716 = np.zeros(input1.size)
+else:
+   eSII_6716 = input1['eSII_6716']
+if Label_SII_6731 == False:
+   SII_6731 = np.zeros(input1.size)
+else:
+   SII_6731 = input1['SII_6731']
+if Label_eSII_6731 == False:
+   eSII_6731 = np.zeros(input1.size)
+else:
+   eSII_6731 = input1['eSII_6731']
 
 ################################################################
 ###### OUTPUT FORMAT AND INFORMATION: ONLY EMISSION LINES ######
@@ -1663,7 +1679,7 @@ output['elogU'] = elogUffs
 if input0.size == 1:  output = np.delete(output,obj=1,axis=0)
 
 #Header comments for the file
-lineas_header = ['HII-CHI-mistry v.5.21 output file', 'Input file: '+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type,'Library file used : '+file_lib_2, 'Template used to constrain grid of models: '+const_file,'']
+lineas_header = ['HII-CHI-mistry v.5.22 output file', 'Input file: '+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type,'Library file used : '+file_lib_2, 'Template used to constrain grid of models: '+const_file,'']
 #Labels for columns (emission lines)
 if Label_ID == True: 
    line_label = '{:30}  '.format(input1.dtype.names[0])
