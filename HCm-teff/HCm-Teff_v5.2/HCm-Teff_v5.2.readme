@@ -1,0 +1,124 @@
+HII-CHI-mistry-Teff version 5.2 instructions
+Enrique Pérez-Montero & Borja Pérez-Díaz 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2022 April
+
+###############################################################
+
+1. INTRODUCTION
+---------------
+
+HCm-Teff is a python script that helps to calculate the ionization parameter (log U) and the equivalent  effective temperature (T*) using relative emission-line fluxes emitted by ionized gaseous nebulae. For more information see Pérez-Montero et al. (2019).From version 4 it can also be used to estimate the number of absorbed photons in a density-bounded geometry (see Pérez-Montero et al. 2020). HII-CHI-mistry has been written for python v.2.7 but from version 4.1 it is also compatible with python 3. It requires the library numpy. 
+
+###############################################################
+
+2. REQUIRED FILES
+-----------------
+
+HCm-Teff has been written in python v.2.7, but it can also be ran in python 3. It requires the library numpy. It also needs the files of the  emission line fluxes predicted by the models, assuming a different set of input conditions and for two different geometries. The necessary files are:
+
+- C17_WMb_Teff_30-60_pp.dat
+- C17_WMb+Rauch_Teff_30-120_pp.dat
+- C17_WMb+Rauch_Teff_30-120_sph.dat
+- C17_WMb_Teff_30-60_pp.dat
+- C17_bb_Teff_30-90_pp.dat
+- C17_bb_Teff_30-90_sph.dat
+- C17_bpass_135_300_esc_sph_4Myr_Zg.dat
+- C17_bpass_135_300_esc_sph_4Myr_Z5.dat
+
+representing  model-predicted emission-line fluxes for different SEDs and geometries as a function of log U,  and T*. All were calculated with Cloudy v.17 and WM-basic  single-star, post-AGB Rauch and black body for plane-parallel and sphreical geometry. , It also includes cluster atmospheres for different density-bounded geometries SEDs.
+These libraries must be stored under the folder "Libraries_teff".
+
+###############################################################
+
+3. HOW TO RUN IT
+----------------
+ 
+To run the program, just type
+
+> python HCm-Teff_v5.2.py
+
+It is possible to write the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm-Teff_v5.2.py input.dat 100). If this parameter is not provided the default value is 25.
+
+Once the input file has been specified in the prompt or by direct question, the code will ask for the parameter to be calculated: (1) Effective Temperature and log U or (2) Photon absorption factor and log U. In the first case we can choose differnt SEDs and Teff ranges including : (1) Wm-Basic (see Pauldrach et al 2002 for mor details) with T* in te range [30000, 60000] K, (2) The same WM-Basic SEDs with the addition of Rauch post-AGB SEDs to extend the Teff range to 120,000K, and (3) Blackbody with T* in the range [30000, 90000] K. On the ohter hand for the calculation of f_abs the program will ask for the stellar metallicity ) of BPASS v.2.1 young massive clusters with binaries. 
+
+In case Teff is going to be calculated the program will ask for the geometry of the model: (1) plane-parallel, or (2) spherical. This will not be required in case of using BPASS v.2.1. young massive clusters SED, where only spherical geometry is considered.
+
+Finally, the program will ask about the use of an interpolated high-resolution grid: (0) non-interpolated or (1) interpolated. This will enhance the resolution of the grid in O/H, Teff, and log U in a factor 10, but it will decrease the speed of calculation.
+
+###############################################################
+
+4. THE INPUT FILE
+-----------------
+
+It must be written in text format with a first row of labels indicating some or all of the following columns: 
+
+ID: identification name
+12logOH and e12logOH: 12+log(O/Hand error ) (if known)
+OII_3727 and eOII_3727: [OII] 3727 / Hbeta and error
+OIII_4959 and eOIII_4959: [OIII] 4959/Hbeta and error
+OIII_5007 and eOIII_5007: [OIII] 5007/Hbeta and error. It is possible to use only one of the two strong nebular [OIII] emission lines.
+SII_6725 and eSII_6725: [SII] 6716+6731/Hbeta and error. It is also possible to introduce the lines individually using the corresponding labels. 
+SIII_9069 and eSIII_9069: [SIII] 9069/Hbeta and error
+SIII_9532 and eSIII_9532: for [SIII] 9532/Hbeta and its error. It is possible to use only one of the two strong nebular [SIII] emission lines.
+HeI_4471 and eHeI_4471:: HeI 4471/Hbeta with  error
+HeI_6678 and eHeI_6678: HeI 6678/Hbeta with  error
+HeI_5876 and eHeI_5876: HeI 5876/Hbeta with  error
+HeII_4686 and eHeII_4686: heII 4686/Hbeta with error
+ArIII_7135 and eArIII_7135: [ArIII] 7135/Hbeta with error
+ArIV_4740 and eArIV_4740: [ArIV] 4740/Hbeta with error
+
+all of them reddening corrected. If no information exists about a certain column it must typed as zero or not introduced in the input file. If the error is not known or if it is not going to be taken into account in the calculations,  it is advisable not using MonteCarlo iterations at all. 
+
+Regarding lines the routine will only provide a  calculation if at least one of the four doublets is given (e.g. [OII] and [OIII] and/or [SII] and [SIII]). If only two low-excitation or high-excitation lines  are given the program will provide 0 values in the results. There are several exceptions for this as the code can also provide solutions when the emission line ratios [SII]/[OIII] or [SII]/[ArIII] cna be obtained..
+
+###############################################################
+
+5. RESULTS
+----------
+
+If the input file is correctly introduced, the program will calculate the wanted quantities and their corresponding errors. The information will be displayed in the screen for each object, along with the ratio of completeness of the task.
+
+In addition the results will be saved in a file whose name is the name of the input file adding "_hcm-teff-output.dat".
+The first column is the identification of each row. A number will be used instead if this has not been supplied in the input file. The next columns show the emission lines introduced in the input file and their corresponding errors. The last six columns show:
+
+12+log(O/H) (either the input or the estimation made by the code)
+error of 12+log(O/H)
+effective temperature in K (Teff)
+error of effective temperature in K (Teff)
+log(U)
+error of log(U)
+
+Although the Teff columns will be replaced by calculations for f_abs if this is required.
+
+###############################################################
+
+6. HISTORY AND UPDATES
+
+Version 5.2 (2022/04)
+Libraries for Rauch post-AGB stars have been incorporate to extend the Teff range of WM-Basic up to 120,000 K. For the calculation of the photon absorption factor libraries from models using BPASS SEDS assuming nearly metal-free stars (e.g. Z = 1e-5) have been also incorporated. Emission lines for HeI 6678 AA, [ArIV] 4740 AA, and [ArIII] 7135 AA can now be used as input.
+
+- Version 5.1 (2022/01):
+Libraries with models are stored in particular folders. Changes in the code to optimize the reading of the files. The output file no longer shows columns with emission lines that were not introduced as inputs.
+
+- Version 5.01:
+This version allows to use labels in the input file to provide identifications for each row. In addition, not all lines and errors must be now introduced in the input file. A bug related with observations with HeII = 0 has been fixed from version 5.0, which has been retired.
+
+- Version 4.1:
+Now emission-line of HeI at 4471 AA can be used. All grids have been extended down to log U = -4.0. Interpolation of the grid of models can be used too.
+
+- Version 4.0:
+Lines of HeiI at 5876 and HeII 4686 are now included to better explore high-energy sources (see Pérez-Montero et al. 2020). In addition, the code now includes BPASS v.2.1 density-bounded models and can provide estimates for the absorption fraction of ionizing photons Te code now also considers ionizing sources from black bodies at different temperatures.
+
+- Version 3.1:
+The code considers [SII][OIII] as observable too when the when either [OII]/[OIII] or [SII]/[SIII]  are not seen.
+
+- Version 3.0:
+Now the code allows to choose among models calculated using a plane-parallel or a spherical geometry. In addition the resolution of the grid in ionization parameter has been improved. Now the output file provides more information.
+
+- Version 2.0: 
+Calculates errors using a MonteCarlo iteration from the input error line fluxes. The number of iterations can be easily edited in the python file. In addition, the mean of the errors of  the  Chi-square distribution is quadratically adde to the Monte  Carlo error.  If not, when no errors are introduced for the lines the final error is too small.
+###
+
+---------------------------
+Further questions and comments are welcome to epm@iaa.es

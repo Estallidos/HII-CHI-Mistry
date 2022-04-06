@@ -49,7 +49,7 @@ The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Bo
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
-The latest version available is HII-CHI-Mistry-Tefff [v.5.11](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.11). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.11/HCm-Teff_v5.11.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). The code is described in the following papers:
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))
@@ -141,15 +141,17 @@ The input file must be written in text format with a first row of labels indicat
 
 - 'ID': identification for each row.
 - '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error{1}.
-- 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3727/Hbeta and its error.
-- 'OIII_4959' and 'eOIII_3727': emission line ratio [OIII] 4959/Hbeta and its error{2}.
-- 'OIII_5007' and 'eOIII_5007': emission line ratio [OIII] 5007Hbeta and its error{2}.
-- 'SII_6725' and 'eSII_6725': emission line ratio [SII] 6717+6731/Hbeta and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
-- 'SIII_9069' and 'eSIII_9069': emission line ratio [SIII] 9069/Hbeta and its error{3}.
-- 'SIII_9532' and 'eSIII_9532': emission line ratio [SIII] 9532/Hbeta and its error{3}.
-- 'HeI_4471' and 'eHeI_4471': emission line ratio HeI 4471/Hbeta and its error.
-- 'HeI_5876' and 'eHeI_5876': emission line ratio HeI 5876/Hbeta and its error.
-- 'HeII_4686' and 'eHeII_4686': emission line ratio HeII 4686/Hbeta and its error.
+- 'OII_3727' and 'eOII_3727': emission line [OII] 3727 and its error.
+- 'OIII_4959' and 'eOIII_3727': emission line [OIII] 4959 and its error{2}.
+- 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error{2}.
+- 'SII_6725' and 'eSII_6725': emission line [SII] 6717+6731 and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
+- 'SIII_9069' and 'eSIII_9069': emission line [SIII] 9069 and its error{3}.
+- 'SIII_9532' and 'eSIII_9532': emission line [SIII] 9532 and its error{3}.
+- 'HeI_4471' and 'eHeI_4471': emission line HeI 4471 and its error.
+- 'HeI_5876' and 'eHeI_5876': emission line HeI 5876 and its error.
+- 'HeII_4686' and 'eHeII_4686': emission line HeII 4686 and its error.
+- 'ArIV_4730' and 'eAIV_4740': emission line [ArIV] 4740 and its error.
+- 'ArIII_7135' and 'eAIII_7135': emission line [ArIII] 7135 and its error.
 
 {1} **Note**: If oxygen abundances are unknown, Him will estimate them.
 {2} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
