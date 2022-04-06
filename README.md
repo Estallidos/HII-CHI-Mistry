@@ -36,13 +36,13 @@ The latest version available is HII-CHI-Mistry [v.5.22](https://github.com/Borja
 
 ### HII-CHI-Mistry ultraviolet range (HCm-uv)
 
-The latest version available is HII-CHI-Mistry-UV [v.4.21](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.21). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.21/HCm-UV_v4.21.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-UV [v.4.22](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.22). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.22/HCm-UV_v4.22.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero & Amorín 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.467.1287P/abstract)).
 
 ### HII-CHI-Mistry infrared range (HCm-ir)
 
-The latest version available is HII-CHI-Mistry-IR [v.3.0](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.0). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.0/HCm-IR_v3.0.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01/HCm-IR_v3.01.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Fernández-Ontiveros et al. 2021](https://ui.adsabs.harvard.edu/abs/2021A%26A...652A..23F/abstract)).
 - Version for Active Galactic Nuclei (Pérez-Díaz et al. submitted).

@@ -1681,24 +1681,17 @@ if input0.size == 1:  output = np.delete(output,obj=1,axis=0)
 #Header comments for the file
 lineas_header = ['HII-CHI-mistry v.5.22 output file', 'Input file: '+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type,'Library file used : '+file_lib_2, 'Template used to constrain grid of models: '+const_file,'']
 #Labels for columns (emission lines)
-if Label_ID == True: 
-   line_label = '{:30}  '.format(input1.dtype.names[0])
-   for ind2 in range(1, len(input1.dtype.names)):
-       line_label += '{:30}  '.format(input1.dtype.names[ind2])
-if Label_ID == False:
-   line_label = '{:30}  '.format('ID')
-   for ind2 in range(0, len(input1.dtype.names)):
-       line_label += '{:30}  '.format(input1.dtype.names[ind2])
+
+line_label = '{:30}  '.format(output.dtype.names[0])
+for ind2 in range(1, len(output.dtype.names)):
+   line_label += '{:30}  '.format(output.dtype.names[ind2])
+
 #Labels for columns 
-line_label += '{:10}   {:10}   {:10}   {:10}   {:10}   {:10}   {:10}'.format('i', 'O/H',    'eO/H',  'N/O' ,   'eN/O' , 'logU',   'elogU')
 lineas_header.append(line_label)
 header = '\n'.join(lineas_header)
 
 #Results
-if Label_ID == True: 
-   np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(input1.dtype.names)-1)+['%i']+['%.2f']*6),header=header)
-if Label_ID == False: 
-   np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(input1.dtype.names))+['%i']+['%.2f']*6),header=header)
+np.savetxt('.'.join(input00.split('.')[:-1])+'_hcm-output.dat',output,fmt=' '.join(['%s']*1+['%.3f']*(len(output.dtype.names)-8)+['%i']+['%.2f']*6),header=header)
 
 lines_stor = []
 with open('.'.join(input00.split('.')[:-1])+'_hcm-output.dat', 'r+') as output_file:

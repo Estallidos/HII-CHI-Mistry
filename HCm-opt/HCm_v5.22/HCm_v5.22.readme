@@ -150,7 +150,7 @@ error of log(U) (take with care if grid 2 or 3 are used)
 ----------------------
 
 - Version 5.22 (2022/04):
-The code automatically sorts the grid of models to perform the interpolation. A bug related with the output writing when the [sII] lines are given separately has been fixed.
+The code automatically sorts the grid of models to perform the interpolation. A bug related with the output writing when the [sII] lines are given separately has been fixed. A bug related with the output file when additional columns are presented in the input file has been fixed.
 
 - Version 5.2 (2022/01):
 The user can now select the constraints to generate limited grids for the code. Libraries with models and constraints are stored in particular folders. Changes in the code to optimize the reading of the files. The output file no longer shows columns with emission lines that were not introduced as inputs.
