@@ -36,7 +36,7 @@ The latest version available is HII-CHI-Mistry [v.5.22](https://github.com/Borja
 
 ### HII-CHI-Mistry ultraviolet range (HCm-uv)
 
-The latest version available is HII-CHI-Mistry-UV [v.4.22](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.22). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v4.22/HCm-UV_v4.22.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-UV [v.5.0](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.0). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.0/HCm-UV_v5.0.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero & Amorín 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.467.1287P/abstract)).
 
@@ -87,7 +87,8 @@ The output file is also a text format, named with the original name of the input
 The input file must be written in text format with a first row of labels indicating some or all of the following columns:
 
 - 'ID': identification for each row.
-- 'Lya_1216' and 'eLya_1216': emission line Lay HI 1216 and its error.
+- 'Lya_1216' and 'eLya_1216': emission line Lya HI 1216 and its error.
+- 'NV_1239' and 'eNV_1239': emission line NV] 1239 and its error.
 - 'CIV_1549' and 'eCIV_1549': emission line CIV 1549 and its error.
 - 'HeII_1640' and 'eHeII_1640': emission line HeII 1640 and its error.
 - 'OIII_1665' and 'eOIII_1665': emission line OIII] 1665 and its error.

@@ -52,9 +52,9 @@ It is also supplied libraries from models calculated with BPASS v.2.1 with an IM
 
 C17_BPASS_IMF135_mup300_1myr.dat
 
-From version 3.0, libraries for NLR in AGNs for different values of alpha_OX (-0.8 and -1.2), and assuming different stopping criteria for the models (fraction of free electrons of 98% or 2%) are also give:
+From version 3.0, libraries for NLR in AGNs for different values of alpha_OX (-0.8 and -1.2), and assuming different stopping criteria for the models (fraction of free electrons of 98% or 2%) are also given:
 
-C17:_AGN_alpha08_efrac98_CNfixed.dat
+C17_AGN_alpha08_efrac98_CNfixed.dat
 C17_AGN_alpha08_efrac02_CNfixed.dat
 C17_AGN_alpha12_efrac98_CNfixed.dat
 C17_AGN_alpha12_efrac02_CNfixed.dat
@@ -99,7 +99,7 @@ To run the program, just type
 
 It is possible to write the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm-IR_v3.0.py input.dat 100). If this parameter is not provided the default value is 25.
 
-Once the input file has been specified in the prompt or by direct question, the code will ask about what SED of models is going to be used: (1) Young POPSTAR massive cluster,  (2) BPASS v.2.1 young massive clusters, (3) double composite AGN with alpha_UV = -1.5, or (4) any other library supplied by the user.
+Once the input file has been specified in the prompt or by direct question, the code will ask about what SED of models is going to be used: (1) Young POPSTAR massive cluster,  (2) BPASS v.2.1 young massive clusters, (3) double composite AGN with alpha_UV = -1.0, or (4) any other library supplied by the user.
 
 In case that the double composite power-law AGN SED (3) is selected, the code will ask for the slope alpha(ox) which can be -0.8 or -1.2. Then, another question will appear to specify the stopping criterion for the models, by setting the number of free electrons in 2% or 98%.
 
