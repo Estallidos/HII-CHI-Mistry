@@ -67,12 +67,12 @@ The input file must be written in text format with a first row of labels indicat
 - 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3727/Hbeta and its error.
 - 'NeIII_3868' and 'eNeIII_3868': emission line ratio [NeIII] 3868/Hbeta and its error.
 - 'OIII_4363' and 'eOIII_4363': emission line ratio [OIII] 4363/Hbeta and its error.
-- 'OIII_4959' and 'eOIII_4959': emission line ratio [OIII] 4959/Hbeta and its error{1}.
-- 'OIII_5007' and 'eOIII_5007': emission line ratio [OIII] 5007/Hbeta and its error{1}.
+- 'OIII_4959' and 'eOIII_4959': emission line ratio [OIII] 4959/Hbeta and its error.<sup>[1](#myfootnote1)</sup>
+- 'OIII_5007' and 'eOIII_5007': emission line ratio [OIII] 5007/Hbeta and its error.<sup>[1](#myfootnote1)</sup>
 - 'NII_6584' and 'eNII_6584': emission line ratio [NII] 6584/Hbeta and its error.
 - 'SII_6725' and 'eSII_6725': emission line ratio [SII] 6717+6731/Hbeta and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
 
-{1} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
+<sup><a name="myfootnote1">1</a></sup> It is possible to use only one of the two strong nebular [OIII] emission lines.
 
 The above emission lines must be reddening corrected. In case no errors are provided, it is advisable not using MonteCarlo iterations at all. All comments must be placed at the beginning of the document preceded by the symbol "#".
 
