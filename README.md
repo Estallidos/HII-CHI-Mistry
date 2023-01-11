@@ -142,13 +142,13 @@ The output file is also a text format, named with the original name of the input
 The input file must be written in text format with a first row of labels indicating some or all of the following columns:
 
 - 'ID': identification for each row.
-- '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error{1}.
+- '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error.<sup>[1](#myfootnote1)</sup>
 - 'OII_3727' and 'eOII_3727': emission line [OII] 3727 and its error.
-- 'OIII_4959' and 'eOIII_3727': emission line [OIII] 4959 and its error{2}.
-- 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error{2}.
+- 'OIII_4959' and 'eOIII_3727': emission line [OIII] 4959 and its error.<sup>[2](#myfootnote2)</sup>
+- 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error.<sup>[2](#myfootnote2)</sup>
 - 'SII_6725' and 'eSII_6725': emission line [SII] 6717+6731 and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
-- 'SIII_9069' and 'eSIII_9069': emission line [SIII] 9069 and its error{3}.
-- 'SIII_9532' and 'eSIII_9532': emission line [SIII] 9532 and its error{3}.
+- 'SIII_9069' and 'eSIII_9069': emission line [SIII] 9069 and its error.<sup>[3](#myfootnote3)</sup>
+- 'SIII_9532' and 'eSIII_9532': emission line [SIII] 9532 and its error.<sup>[3](#myfootnote3)</sup>
 - 'HeI_4471' and 'eHeI_4471': emission line HeI 4471 and its error.
 - 'HeI_5876' and 'eHeI_5876': emission line HeI 5876 and its error.
 - 'HeII_4686' and 'eHeII_4686': emission line HeII 4686 and its error.
@@ -156,19 +156,19 @@ The input file must be written in text format with a first row of labels indicat
 - 'ArIII_7135' and 'eAIII_7135': emission line [ArIII] 7135 and its error.
 - 'NII_6584' and 'eNII_6584': emission line [NII] 6584 and its error.
 
-{1} **Note**: If oxygen abundances are unknown, Him will estimate them.
-{2} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
-{3} **Note**: It is possible to use only one of the two strong nebular [SIII] emission lines.
+<sup><a name="myfootnote1">1</a></sup> If oxygen abundances are unknown, Him will estimate them.
+<sup><a name="myfootnote2">2</a></sup> It is possible to use only one of the two strong nebular [OIII] emission lines.
+<sup><a name="myfootnote3">3</a></sup> It is possible to use only one of the two strong nebular [SIII] emission lines.
 
 The above emission lines must be reddening corrected. In case no errors are provided, it is advisable not using MonteCarlo iterations at all. All comments must be placed at the beginning of the document preceded by the symbol "#".
 
 The output file is also a text format, named with the original name of the input file and followed by the extension "_hcm-teff-output.dat". The first columns will show the information provided in the input file. In case ID column is missing, the code will automatically assign a cardinal to each row. The last seven columns show:
 
 - 'O/H' and 'eO/H': estimation or input value of the oxygen abundance 12+log(O/H) and its uncertainty.
-- 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty{4}.
+- 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty.<sup>[4](#myfootnote4)</sup>
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
-{4} **Note**: If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
+<sup><a name="myfootnote4">4</a></sup> If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
 
 ## Support
 
