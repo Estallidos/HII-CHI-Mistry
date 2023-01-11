@@ -561,7 +561,7 @@ else:
 if Label_SIII_9069 == False and Label_SIII_9532 == False:
    SIII_9069 = np.zeros(input1.size)
 elif Label_SIII_9069 == False and Label_SIII_9532 == True:
-   SIII_9069 = input1['SIII_9069']/2.44
+   SIII_9069 = input1['SIII_9532']/2.44
 elif Label_SIII_9069 == True and Label_SIII_9532 == False:
    SIII_9069 = input1['SIII_9069']
 else:
@@ -569,7 +569,7 @@ else:
 if Label_eSIII_9069 == False and Label_eSIII_9532 == False:
    eSIII_9069 = np.zeros(input1.size)
 elif Label_eSIII_9069 == False and Label_eSIII_9532 == True:
-   eSIII_9069 = input1['eSIII_9069']/2.44
+   eSIII_9069 = input1['eSIII_9532']/2.44
 elif Label_eSIII_9069 == True and Label_eSIII_9532 == False:
    eSIII_9069 = input1['eSIII_9069']
 else:

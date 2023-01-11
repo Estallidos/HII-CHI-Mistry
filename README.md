@@ -45,14 +45,15 @@ The latest version available is HII-CHI-Mistry-UV [v.5.0](https://github.com/Bor
 The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01/HCm-IR_v3.01.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Fernández-Ontiveros et al. 2021](https://ui.adsabs.harvard.edu/abs/2021A%26A...652A..23F/abstract)).
-- Version for Active Galactic Nuclei (Pérez-Díaz et al. submitted).
+- Version for Active Galactic Nuclei ([Pérez-Díaz et al. 2022](https://ui.adsabs.harvard.edu/abs/2022A%26A...666A.115P/abstract)).
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
-The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-Tefff [v.5.3](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.3). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.3.readme). The code is described in the following papers:
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))
+- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. (2022)](https://ui.adsabs.harvard.edu/abs/2022arXiv221203216P/abstract)
 
 
 ## Inputs and outputs
@@ -153,6 +154,7 @@ The input file must be written in text format with a first row of labels indicat
 - 'HeII_4686' and 'eHeII_4686': emission line HeII 4686 and its error.
 - 'ArIV_4730' and 'eAIV_4740': emission line [ArIV] 4740 and its error.
 - 'ArIII_7135' and 'eAIII_7135': emission line [ArIII] 7135 and its error.
+- 'NII_6584' and 'eNII_6584': emission line [NII] 6584 and its error.
 
 {1} **Note**: If oxygen abundances are unknown, Him will estimate them.
 {2} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
