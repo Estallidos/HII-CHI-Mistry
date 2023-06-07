@@ -1359,7 +1359,7 @@ for tab in range(0,len(input1),1):
                   elif index['NII_6584'] == 0 or index['OIII_5007'] == 0:
                      CHI_N2O3 = tol_max
                   else:
-                     CHI_N2O3 = (np.log10(index['NII_6584']/index['OIII_5007']) - N2O3_obs)**2/np.abs(N2o3_obs)
+                     CHI_N2O3 = (np.log10(index['NII_6584']/index['OIII_5007']) - N2O3_obs)**2/np.abs(N2O3_obs)
                   if N2S3_obs == -10:
                      CHI_N2S3 = 0
                   elif index['NII_6584'] == 0 or index['SIII_9069'] == 0:
