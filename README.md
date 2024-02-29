@@ -49,7 +49,7 @@ The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Bo
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
-The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). We have released a new version of this code which takes as input infrared emission lines, HII-CHI-Mistry-Teff-IR [v2.2](). Details on the usage of the IR version can be found [here](). The code is described in the following papers:
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))

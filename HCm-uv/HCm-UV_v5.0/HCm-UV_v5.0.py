@@ -261,9 +261,10 @@ print ('')
 
 sed = int(sed)
 inter = int(inter)
-alpha = int(alpha)
-efrac = int(efrac)
-grains = int(grains)
+if sed == 3:
+   alpha = int(alpha)
+   efrac = int(efrac)
+   grains = int(grains)
 
 
 #POPSTAR MODEL
