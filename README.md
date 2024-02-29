@@ -49,15 +49,16 @@ The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Bo
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
-<<<<<<< HEAD
-The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). We have released a new version of this code which takes as input infrared emission lines, HII-CHI-Mistry-Teff-IR [v2.2](). Details on the usage of the IR version can be found [here](). The code is described in the following papers:
-=======
-The latest version available is HII-CHI-Mistry-Tefff [v.5.3](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.3). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.3.readme). The code is described in the following papers:
->>>>>>> 755ccfc2bcc256575c1623d50952325cab461312
+The latest version available is HII-CHI-Mistry-Tefff [v.5.4](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.4). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.4/HCm-Teff_v5.4.readme). The code is described in the following papers:
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
-- Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))
-- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. (2022)](https://ui.adsabs.harvard.edu/abs/2022arXiv221203216P/abstract)
+- Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract)).
+- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. (2023)](https://ui.adsabs.harvard.edu/abs/2023A%26A...669A..88P/abstract).
+
+
+Additionally, a new release of an infrared version of this code has been published, namely HII-CHI-Mistry-Teff-IR [v.2.2](https://github.com/Estallidos/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff-IR_v2.2). Details on its usage and list of changes can be found [here](https://github.com/Estallidos/HII-CHI-Mistry/blob/main/HCm-teff/HCm-Teff-IR_v2.2/HCm-Teff-IR_v2.2.readme). The code is described in the following paper:
+
+- Introduction to the code based on infrared emission lines ([Pérez-Montero et al. (2024)](https://ui.adsabs.harvard.edu/abs/2024arXiv240109765P/abstract)).
 
 
 ## Inputs and outputs
@@ -141,7 +142,7 @@ The output file is also a text format, named with the original name of the input
 - 'N/O' and 'eN/O': estimation of the nitrogen-to-oxygen abundance log(N/O) and its uncertainty.
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
-### Effective temperature
+### Effective temperature (optical version)
 
 The input file must be written in text format with a first row of labels indicating some or all of the following columns:
 
@@ -160,7 +161,7 @@ The input file must be written in text format with a first row of labels indicat
 - 'ArIII_7135' and 'eAIII_7135': emission line [ArIII] 7135 and its error.
 - 'NII_6584' and 'eNII_6584': emission line [NII] 6584 and its error.
 
-<sup><a name="myfootnote1">1</a></sup> If oxygen abundances are unknown, Him will estimate them.
+<sup><a name="myfootnote1">1</a></sup> If oxygen abundances are unknown, HCm will estimate them.
 <sup><a name="myfootnote2">2</a></sup> It is possible to use only one of the two strong nebular [OIII] emission lines.
 <sup><a name="myfootnote3">3</a></sup> It is possible to use only one of the two strong nebular [SIII] emission lines.
 
@@ -173,6 +174,39 @@ The output file is also a text format, named with the original name of the input
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
 <sup><a name="myfootnote4">4</a></sup> If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
+
+### Effective temperature (infrared version)
+
+The input file must be written in text format with a first row of labels indicating some or all of the following columns:
+
+- 'ID': identification for each row.
+- '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error.<sup>[1](#myfootnote1)</sup>
+- 'ArII_7m' and 'eArII_7m': [ArII] 6.98 mic and its error
+- 'ArV_7m' and 'eArV_7m': [ArV] 7.90 mic and its error
+- 'ArIII_9m' and 'eArIII_9m': [ArIII] 8.99 mic and its error
+- 'SIV_10m' and 'eSIV_10m': [SIV] 10.5 mic and its error
+- 'NeII_12m' and 'eNeII_12m': [NeII] 12.8 mic and its error
+- 'ArV_13m' and 'eArV_13m': [ArV] 13.1 mic  and its error
+- 'NeV_14m' and 'eNeV_14m': [NeV] 14.3 mic  and its error
+- 'NeIII_15m' and 'eNeIII_15m': [NeIII] 15.5 mic  and its error
+- 'SIII_18m' and 'eSIII_18m': [SIII] 18.7 mic and its error
+- 'NeV_24m' and 'eNeV_24m': [NeV] 24.2 mic  and its error
+- 'OIV_25m' and 'eOIV_25m': [OIV] 25.9 mic  and its error
+- 'SIII_33m' and 'eSIII_33m': [SIII] 33.7 mic and ist error
+- 'OIII_52m' and 'eOIII_52m': [OIII] 52 mic and its error
+- 'NIII_57m' and 'eNIII_57m': [NII] 57 mic and its error
+- 'OIII_88m' and 'eOIII_88m': [OIII] 88 mic and its error
+- 'NII_122m' and 'eNII_122m': [NII] 122 mic and its error
+- 'NII_205m' and 'eNII_205m': [NII] 205 mic and its error
+
+The above emission lines must be reddening corrected. If no information exists about a certain column it must typed as zero or not introduced in the input file. If the error is not known or if it is not going to be taken into account in the calculations,  it is advisable not using MonteCarlo iterations at all. Regarding lines the routine will only provide a  solution if at least one low-to-high excitation is given (e.g. [NeII] and [NeIII] and/or [SIII] and [SIV]). If only two low-excitation or high-excitation lines  are given the program will provide 0 values in the results.
+
+The output file is also a text format, named with the original name of the input file and followed by the extension "_HCm-Teff-IR-output.dat". The first columns will show the information provided in the input file. In case ID column is missing, the code will automatically assign a cardinal to each row. The last seven columns show:
+
+- 'O/H' and 'eO/H': estimation or input value of the oxygen abundance 12+log(O/H) and its uncertainty.
+- 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty.
+- 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
+
 
 ## Support
 
