@@ -1,4 +1,4 @@
-# Filename: HCm-Teff_v5.2.py
+# Filename: HCm-Teff_v5.4.py
 
 import string
 import numpy as np
@@ -23,22 +23,16 @@ def interpolate(grid,z,zmin,zmax,n,param):
    auxiliar_labels = np.genfromtxt('Libraries_teff/'+file_1, dtype=None, names=True, encoding = 'ascii', skip_header=n_comments).dtype.names
    ncol = len(auxiliar_labels)
    vec = []
-   if z == 2:
-      label_z = 'logUsp'
-   if z == 1:
-      label_z = label_t
-   if z == 0:
-      label_z = '12logOH'
    type_list_names = []
    for col in auxiliar_labels:
       inter = 0
       no_inter = 0
       type_list_names.append((col, float))
       for row in range(0,len(grid)):
-         if grid[label_z][row] < zmin or grid[label_z][row] > zmax: continue
-         if z == 2: x = '12logOH'; y = label_t
-         if z == 1: x = '12logOH'; y = 'logUsp'
-         if z == 0: x = label_t; y = 'logUsp'
+         if grid[z][row] < zmin or grid[z][row] > zmax: continue
+         if z == 'logUsp': x = '12logOH'; y = label_t
+         if z == label_t: x = '12logOH'; y = 'logUsp'
+         if z == '12logOH': x = label_t; y = 'logUsp'
          if row == (len(grid)-1):
             vec.append(grid[col][row])
             no_inter = no_inter + 1
@@ -62,16 +56,19 @@ def interpolate(grid,z,zmin,zmax,n,param):
 
 
 print (' ---------------------------------------------------------------------')
-print ('This is HII-CHI-mistry-Teff v. 5.2')
+print ('This is HII-CHI-mistry-Teff v. 5.4')
 print (' See Perez-Montero et al (2019) for details')
 print ( ' Insert the name of your input text file with all or some of the following columns:')
 print ('12+log(O/H)')
+print (' 1549 CIV]')
+print (' 1909 CIII]')
 print (' 3727 [OII]')
 print ('4471 Hei')
 print ('4686 HeII')
 print ('4740 [ArIV]')
 print ('4959,5007 [OIII]')
 print ('5876 HeI')
+print ('6584 [NII]')
 print ('6678 HeI')
 print ('6717+31 [SII]')
 print ('7135 [ArIII]')
@@ -142,11 +139,10 @@ while question:
    print ('------------')
    print ('(1) Effective temperature and ionization parameter')
    print ('(2) Photon absorption fraction and ionization parameter')
-
    print ('')
    #print('Other SED')
    #print('---------')
-   #print ('(4) Different library')
+   #print ('(3) Different library')
    print('-------------------------------------------------')
    if int(sys.version[0]) < 3:
       param = raw_input('Choose derived parameters: ')
@@ -162,7 +158,7 @@ if param == '1':
       print ('---------------------------------------------------------------------')
       print ('(1) WM-Basic  (30-60 kK) ')
       print ('(2) WM-Basic  (30-60 kK) and Rauch (80-120 kK) stellar atmospheres')
-      print ('(3) Black body (30-90 kK)')
+      print ('(3) Black body (30-100 kK)')
       print ('---------------------------------------------------------------------')
 
       if int(sys.version[0]) < 3:
@@ -193,14 +189,14 @@ if param == '2':
       print ('---------------------------------------------------------------------')
       print ('(1) BPASS cluster atmospheres, age = 4 Myr, Mup = 300, x = 1.35, w/binaries, Z* = Zg')
       print ('(2) BPASS cluster atmospheres, age = 4 Myr, Mup = 300, x = 1.35, w/binaries, Z* = 1e-5')
-
+      print ('(3) Black Body, T = 1e5 K')
       print ('---------------------------------------------------------------------')
 
       if int(sys.version[0]) < 3:
          sed_fabs = raw_input('Choose models:')
       else:
          sed_fabs = input('Choose models:')
-      if sed_fabs == '1' or sed_fabs == '2' : question = False
+      if sed_fabs == '1' or sed_fabs == '2' or sed_fabs == '3': question = False
 
 
 question = True
@@ -287,8 +283,8 @@ elif geo==2 and sed == 2:
       print ('Teff and U calculation using WM-Basic and Rauch models with spherical geometry and interpolation')
 
 elif geo==1 and sed == 3:
-   bin = 132
-   file_lib = 'C17_bb_Teff_30-90_pp.dat'
+   bin = 143
+   file_lib = 'C17_bb_Teff_30-100_pp.dat'
    #Counting comments:
    n_comments = 0
    with open('Libraries_teff/'+file_lib, 'r') as file:
@@ -303,8 +299,8 @@ elif geo==1 and sed == 3:
       sed_type = 'Black body. Plane-parallel geometry. Interpolated'
       print ('Teff and U calculation using black body models with plane-parallel geometry and interpolation')
 elif geo==2 and sed == 3:
-   bin = 132
-   file_lib = 'C17_bb_Teff_30-90_sph.dat'
+   bin = 143
+   file_lib = 'C17_bb_Teff_30-100_sph.dat'
    #Counting comments:
    n_comments = 0
    with open('Libraries_teff/'+file_lib, 'r') as file:
@@ -332,10 +328,10 @@ elif sed_fabs == 1:
    grid_aux = np.genfromtxt('Libraries_teff/'+file_lib,dtype=None,names=True, encoding = 'ascii', skip_header=n_comments)
    if inter == 0:
       sed_type ='BPASS cluster atmospheres, Mup = 300, x = 1.35, age = 4 Myr. and Z* = Zg. Not interpolated'
-      print ('F_abs and U calculation usingBPASS models withz* = Zg and non-interpolation')
+      print ('F_abs and U calculation using BPASS models withz* = Zg and non-interpolation')
    elif inter == 1:
       sed_type ='BPASS cluster atmospheres, Mup = 300, x = 1.35, age = 4 Myr. and Z* = Zg. Interpolated'
-      print ('F_abs and U calculation usingBPASS models with Z* = Zg and interpolation')
+      print ('F_abs and U calculation using BPASS models with Z* = Zg and interpolation')
 
 elif sed_fabs == 2:
    bin = 88
@@ -349,10 +345,27 @@ elif sed_fabs == 2:
    grid_aux = np.genfromtxt('Libraries_teff/'+file_lib,dtype=None,names=True, encoding = 'ascii', skip_header=n_comments)
    if inter == 0:
       sed_type ='BPASS cluster atmospheres, Mup = 300, x = 1.35, age = 4 Myr. Z* = 1e-5. Not interpolated'
-      print ('F_abs and U calculation usingBPASS models with Z* = 1e-5 and non-interpolation')
+      print ('F_abs and U calculation using BPASS models with Z* = 1e-5 and non-interpolation')
    elif inter == 1:
       sed_type ='BPASS cluster atmospheres, Mup = 300, x = 1.35, age = 4 Myr. Z* = 1e-5. Interpolated'
-      print ('F_abs and U calculation usingBPASS models with Z* = 1e-5 and interpolation')
+      print ('F_abs and U calculation using BPASS models with Z* = 1e-5 and interpolation')
+
+elif sed_fabs == 3:
+   bin = 88
+   file_lib = 'C17_bb_T10.0_sph_esc.dat'
+   #Counting comments:
+   n_comments = 0
+   with open('Libraries_teff/'+file_lib, 'r') as file:
+      for line in file:
+         if line[0] == '#':
+            n_comments += 1
+   grid_aux = np.genfromtxt('Libraries_teff/'+file_lib,dtype=None,names=True, encoding = 'ascii', skip_header=n_comments)
+   if inter == 0:
+      sed_type ='Black-body, T* = 1e5 K. Not interpolated'
+      print ('F_abs and U calculation using Black-body 1e5 K models  and non-interpolation')
+   elif inter == 1:
+      sed_type ='Black-body, T* = 1e5 K.  Interpolated'
+      print ('F_abs and U calculation using Black-body T* 1e5 K and interpolation')
 
 
 #Different library
@@ -391,6 +404,10 @@ elogUffs = []
 Label_ID = False
 Label_OH = False
 Label_eOH = False
+Label_CIV = False
+Label_eCIV = False
+Label_CIII = False
+Label_eCIII = False
 Label_OII = False
 Label_eOII = False
 Label_OIII_4959 = False
@@ -419,6 +436,8 @@ Label_ArIV_4740 = False
 Label_eArIV_4740 = False
 Label_ArIII_7135 = False
 Label_eArIII_7135 = False
+Label_NII_6584 = False
+Label_eNII_6584 = False
 
 
 for col in range(0,len(input1.dtype.names),1):
@@ -428,6 +447,14 @@ for col in range(0,len(input1.dtype.names),1):
       Label_OH = True
    if input1.dtype.names[col] == 'e12logOH':
       Label_eOH = True
+   if input1.dtype.names[col] == 'CIV_1549':
+      Label_CIV = True
+   if input1.dtype.names[col] == 'eCIV_1549':
+      Label_eCIV = True
+   if input1.dtype.names[col] == 'CIII_1909':
+      Label_CIII = True
+   if input1.dtype.names[col] == 'eCIII_1909':
+      Label_eCIII = True
    if input1.dtype.names[col] == 'OII_3727':
       Label_OII = True
    if input1.dtype.names[col] == 'eOII_3727':
@@ -484,6 +511,10 @@ for col in range(0,len(input1.dtype.names),1):
       Label_ArIII_7135 = True
    if input1.dtype.names[col] == 'eArIII_7135':
       Label_eArIII_7135 = True
+   if input1.dtype.names[col] == 'NII_6584':
+      Label_NII_6584 = True
+   if input1.dtype.names[col] == 'eNII_6584':
+      Label_eNII_6584 = True
 
 
 if Label_ID == False:
@@ -498,6 +529,22 @@ if Label_eOH == False:
    elogOH = np.zeros(input1.size)
 else:
    elogOH = input1['e12logOH']
+if Label_CIV == False:
+   CIV_1549 = np.zeros(input1.size)
+else:
+   CIV_1549 = input1['CIV_1549']
+if Label_eCIV == False:
+   eCIV_1549 = np.zeros(input1.size)
+else:
+   eCIV_1549 = input1['eCIV_1549']
+if Label_CIII == False:
+   CIII_1909 = np.zeros(input1.size)
+else:
+   CIII_1909 = input1['CIII_1909']
+if Label_eCIII == False:
+   eCIII_1909 = np.zeros(input1.size)
+else:
+   eCIII_1909 = input1['eCIII_1909']
 if Label_OII == False:
    OII_3727 = np.zeros(input1.size)
 else:
@@ -630,11 +677,28 @@ if Label_eArIII_7135 == False:
    eArIII_7135 = np.zeros(input1.size)
 else:
    eArIII_7135 = input1['eArIII_7135']
+if Label_NII_6584 == False:
+   NII_6584 = np.zeros(input1.size)
+else:
+   NII_6584 = input1['NII_6584']
+if Label_eNII_6584 == False:
+   eNII_6584 = np.zeros(input1.size)
+else:
+   eNII_6584 = input1['eNII_6584']
+
 
 
 #Creation of output only with information from inputs
 aux_list = []
 aux_list.append(('ID','U12'))
+if Label_CIV == True:
+   aux_list.append(('CIV_1549', float))
+if Label_eCIV == True:
+   aux_list.append(('eCIV_1549', float))
+if Label_CIII == True:
+   aux_list.append(('CIII_1909', float))
+if Label_eCIII == True:
+   aux_list.append(('eCIII_1909', float))
 if Label_OII == True:
    aux_list.append(('OII_3727', float))
 if Label_eOII == True:
@@ -691,6 +755,10 @@ if Label_ArIII_7135 == True:
    aux_list.append(('ArIII_7135', float))
 if Label_eArIII_7135 == True:
    aux_list.append(('eArIII_7135', float))
+if Label_NII_6584 == True:
+   aux_list.append(('NII_6584', float))
+if Label_eNII_6584 == True:
+   aux_list.append(('eNII_6584', float))
 
 aux_list.append(('OH', float))
 aux_list.append(('eOH', float))
@@ -705,6 +773,14 @@ aux_list.append(('elogU', float))
 output = np.zeros(input1.size, dtype=aux_list)
 
 output['ID'] = Names
+if Label_CIV == True:
+   output['CIV_1549'] = CIV_1549
+if Label_eCIV == True:
+   output['eCIV_1549'] = eCIV_1549
+if Label_CIII == True:
+   output['CIII_1909'] = CIII_1909
+if Label_eCIII == True:
+   output['eCIII_1909'] = eCIII_1909
 if Label_OII == True:
    output['OII_3727'] = OII_3727
 if Label_eOII == True:
@@ -761,6 +837,10 @@ if Label_ArIII_7135 == True:
    output['ArIII_7135'] = ArIII_7135
 if Label_eArIII_7135 == True:
    output['eArIII_7135'] = eArIII_7135
+if Label_NII_6584 == True:
+   output['NII_6584'] = NII_6584
+if Label_eNII_6584 == True:
+   output['eNII_6584'] = eNII_6584
 
 
 print ('Reading grids ....')
@@ -807,6 +887,14 @@ for tab in range(0,len(input1),1):
       tol_max = 1e2
 
 
+      CIV_1549_obs = 0
+      if CIV_1549[tab] > 0:
+         while CIV_1549_obs <= 0:
+            CIV_1549_obs = np.random.normal(CIV_1549[tab],eCIV_1549[tab]+1e-3)
+      CIII_1909_obs = 0
+      if CIII_1909[tab] > 0:
+         while CIII_1909_obs <= 0:
+            CIII_1909_obs = np.random.normal(CIII_1909[tab],eCIII_1909[tab]+1e-3)
       OII_3727_obs = 0
       if OII_3727[tab] > 0:
          while OII_3727_obs <= 0:
@@ -847,6 +935,15 @@ for tab in range(0,len(input1),1):
       if ArIII_7135[tab] > 0:
          while ArIII_7135_obs <= 0:
             ArIII_7135_obs = np.random.normal(ArIII_7135[tab],eArIII_7135[tab]+1e-3)
+      NII_6584_obs = 0
+      if NII_6584[tab] > 0:
+         while NII_6584_obs <= 0:
+            NII_6584_obs = np.random.normal(NII_6584[tab],eNII_6584[tab]+1e-3)
+
+      if CIV_1549_obs == 0 or CIII_1909_obs == 0:
+         C3C4_obs = -10
+      else:
+         C3C4_obs = np.log10(CIII_1909_obs / CIV_1549_obs) 
       if OII_3727_obs == 0 or OIII_5007_obs == 0:
          O2O3_obs = -10
          R23_obs = -10
@@ -883,6 +980,18 @@ for tab in range(0,len(input1),1):
          Ar3Ar4_obs = -10
       else:
          Ar3Ar4_obs = np.log10( ArIII_7135_obs/ArIV_4740_obs )
+      if NII_6584_obs == 0 or OIII_5007_obs == 0:
+         N2O3_obs = -10
+      else:
+         N2O3_obs = np.log10(NII_6584_obs / OIII_5007_obs )
+      if NII_6584_obs == 0 or SIII_9069_obs == 0:
+         N2S3_obs = -10
+      else:
+         N2S3_obs = np.log10(NII_6584_obs / SIII_9069_obs )
+      if NII_6584_obs == 0 or ArIII_7135_obs == 0:
+         N2Ar3_obs = -10
+      else:
+         N2Ar3_obs = np.log10(NII_6584_obs / ArIII_7135_obs )
 
       
 
@@ -930,7 +1039,7 @@ for tab in range(0,len(input1),1):
       #         grid_T0.append(grid[i0+x,y]*np.abs(0.3-grid[i0,0]+OH)/0.3 + grid[i1+x,y]*np.abs(0.3-grid[i1,0]+OH)/0.3)
 
 
-         grid_T_aux = np.reshape(grid_T0,(bin,13))
+         grid_T_aux = np.reshape(grid_T0,(bin,16))
          grid_T = np.zeros(grid_T_aux.shape[0], dtype=grid.dtype)
          for col_n in range(0, len(grid.dtype.names)):
              grid_T[grid.dtype.names[col_n]] = grid_T_aux[:, col_n]
@@ -946,10 +1055,14 @@ for tab in range(0,len(input1),1):
 
 # Calculation of T and log U
 
-      if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10:
-         Teff = 0
+      if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10 and N2O3_obs == -10 and N2S3_obs == -10 and N2Ar3_obs == -10 and S2O3_obs == -10 and C3C4_obs == -10:
+         if param == 1:
+            Teff = 0
+         else:
+            Teff = -10
          logU = 0
       else:
+         CHI_C3C4 = 0
          CHI_O2O3 = 0
          CHI_S2S3 = 0
          CHI_S23 = 0
@@ -960,9 +1073,17 @@ for tab in range(0,len(input1),1):
          CHI_He12 = 0
          CHI_S2Ar3 = 0
          CHI_Ar3Ar4 = 0
-
+         CHI_N2O3 = 0
+         CHI_N2Ar3 = 0
+         CHI_N2S3 = 0
          for index in grid_T:
             if index['HeII_4686'] == 0 and HeII_4686_obs > 0: continue
+            if C3C4_obs == -10:
+               CHI_C3C4 = 0
+            elif index['CIV_1549'] == 0 or index['CIII_1909'] == 0:
+               CHI_C3C4 = tol_max
+            else:
+               CHI_C3C4 = (np.log10(index['CIII_1909']/index['CIV_1549']) - C3C4_obs)**2/np.abs(C3C4_obs)
             if S2S3_obs == -10:
                CHI_S2S3 = 0
                CHI_S23 = 0
@@ -970,38 +1091,38 @@ for tab in range(0,len(input1),1):
                CHI_S2S3 = tol_max
                CHI_S23 = tol_max    
             else:
-               CHI_S2S3 = (np.log10(index['SII_671731']/index['SIII_9069']) - S2S3_obs)**2/S2S3_obs
-               CHI_S23 = (index['SII_671731']+index['SIII_9069']-S23_obs)**2/S23_obs
+               CHI_S2S3 = (np.log10(index['SII_671731']/index['SIII_9069']) - S2S3_obs)**2/np.abs(S2S3_obs)
+               CHI_S23 = (index['SII_671731']+index['SIII_9069']-S23_obs)**2/np.abs(S23_obs)
             if S2O3_obs == -10:
                CHI_S2O3 = 0
             elif index['SII_671731'] == 0 or index['OIII_5007'] == 0:
                CHI_S2O3 = tol_max
             else:
-               CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/S2O3_obs
+               CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/np.abs(S2O3_obs)
             if O2O3_obs == -10:
                CHI_O2O3 = 0
             elif index['OII_3727'] == 0 or index['OIII_5007'] == 0:
                CHI_O2O3 = tol_max
             else:
-               CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/O2O3_obs
+               CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/np.abs(O2O3_obs)
             if He12a_obs == -10:
                CHI_He12a = 0
             elif index['HeI_4471'] == 0 or index['HeII_4686'] == 0:
                CHI_He12a = tol_max
             else:
-               CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/He12a_obs
+               CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/np.abs(He12a_obs)
             if He12b_obs == -10:
                CHI_He12b = 0
             elif index['HeI_5876'] == 0 or index['HeII_4686'] == 0:
                CHI_He12b = tol_max
             else:
-               CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/He12b_obs
+               CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/np.abs(He12b_obs)
             if He12c_obs == -10:
                CHI_He12c = 0
             elif index['HeI_6678'] == 0 or index['HeII_4686'] == 0:
                CHI_He12c = tol_max
             else:
-               CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/He12c_obs
+               CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/np.abs(He12c_obs)
             if CHI_He12a == 0 and CHI_He12b == 0 and CHI_He12c == 0:
                CHI_HE12 = 0
             elif CHI_He12b >= 0:
@@ -1015,26 +1136,42 @@ for tab in range(0,len(input1),1):
             elif index['SII_671731'] == 0 or index['ArIII_7135'] == 0:
                CHI_S2Ar3 = tol_max
             else:
-               CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/S2Ar3_obs
+               CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/np.abs(S2Ar3_obs)
             if Ar3Ar4_obs == -10:
                CHI_Ar3Ar4 = 0
             elif index['ArIII_7135'] == 0 or index['ArIV_4740'] == 0:
                CHI_Ar3Ar4 = tol_max
             else:
-               CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/Ar3Ar4_obs
+               CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/np.abs(Ar3Ar4_obs)
+            if N2O3_obs == -10:
+               CHI_N2O3 = 0
+            elif index['NII_6584'] == 0 or index['OIII_5007'] == 0:
+               CHI_N2O3 = tol_max
+            else:
+               CHI_N2O3 = (np.log10(index['NII_6584']/index['OIII_5007']) - N2O3_obs)**2/np.abs(N2O3_obs)
+            if N2S3_obs == -10:
+               CHI_N2S3 = 0
+            elif index['NII_6584'] == 0 or index['SIII_9069'] == 0:
+               CHI_N2S3 = tol_max
+            else:
+               CHI_N2S3 = (np.log10(index['NII_6584']/index['SIII_9069']) - N2S3_obs)**2/np.abs(N2S3_obs)
+            if N2Ar3_obs == -10:
+               CHI_N2Ar3 = 0
+            elif index['NII_6584'] == 0 or index['ArIII_7135'] == 0:
+               CHI_N2Ar3 = tol_max
+            else:
+               CHI_N2Ar3 = (np.log10(index['NII_6584']/index['ArIII_7135']) - N2Ar3_obs)**2/np.abs(N2Ar3_obs)
 
 
 
             if OII_3727_obs == 0 and SIII_9069_obs >0:
-               CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
             elif SIII_9069_obs == 0 and OII_3727_obs > 0:
-               CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
-            elif SIII_9069_obs == 0 and OII_3727_obs > 0 and ArIII_7135_obs == 0:
-               CHI_Teff = (CHI_He12**2 + CHI_O2O3**2 + CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
-            elif SIII_9069_obs == 0 and OII_3727_obs == 0 and ArIII_7135_obs > 0:
-               CHI_Teff = (CHI_He12**2 + CHI_S2Ar3**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
+            elif SIII_9069_obs == 0 and OII_3727_obs == 0:
+               CHI_Teff = (CHI_He12**2 + CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
             else:
-               CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
 
 
             if CHI_Teff == 0:
@@ -1050,7 +1187,10 @@ for tab in range(0,len(input1),1):
                den_Teff = (1/CHI_Teff)**2 + den_Teff
 
          if Teff_p == 0:
-            Teff = 0
+            if param == 1:
+               Teff = 0
+            else:
+               Teff = -10
             logU = 0
          else:
             Teff = Teff_p / den_Teff 
@@ -1060,10 +1200,14 @@ for tab in range(0,len(input1),1):
 # Calculation of T and log U errors
 
 
-      if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10:
-         eTeff = 0
+      if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10 and N2O3_obs == -10 and N2S3_obs == -10 and N2Ar3_obs == -10 and S2O3_obs == -10 and C3C4_obs == -10:
+         if param == 1:
+            eTeff = 0
+         else:
+            eTeff = -10
          elogU = 0
       else:
+         CHI_C3C4 = 0
          CHI_O2O3 = 0
          CHI_S2S3 = 0
          CHI_S23 = 0
@@ -1074,9 +1218,18 @@ for tab in range(0,len(input1),1):
          CHI_He12 = 0
          CHI_S2Ar3 = 0
          CHI_Ar3Ar4 = 0
-
+         CHI_N2O3 = 0
+         CHI_N2S3 = 0
+         CHI_N2Ar3 = 0
          for index in grid_T:
             if index['HeII_4686'] == 0 and HeII_4686_obs > 0: continue
+            if index['ArIV_4740'] > 0 and ArIV_4740_obs == -10: continue
+            if C3C4_obs == -10:
+               CHI_C3C4 = 0
+            elif index['CIV_1549'] == 0 or index['CIII_1909'] == 0:
+               CHI_C3C4 = tol_max
+            else:
+               CHI_C3C4 = (np.log10(index['CIII_1909']/index['CIV_1549']) - C3C4_obs)**2/np.abs(C3C4_obs)
             if S2S3_obs == -10:
                CHI_S2S3 = 0
                CHI_S23 = 0
@@ -1084,38 +1237,38 @@ for tab in range(0,len(input1),1):
                CHI_S2S3 = tol_max
                CHI_S23 = tol_max    
             else:
-               CHI_S2S3 = (np.log10(index['SII_671731']/index['SIII_9069']) - S2S3_obs)**2/S2S3_obs
-               CHI_S23 = (index['SII_671731']+index['SIII_9069']-S23_obs)**2/S23_obs
+               CHI_S2S3 = (np.log10(index['SII_671731']/index['SIII_9069']) - S2S3_obs)**2/np.abs(S2S3_obs)
+               CHI_S23 = (index['SII_671731']+index['SIII_9069']-S23_obs)**2/np.abs(S23_obs)
             if S2O3_obs == -10:
                CHI_S2O3 = 0
             elif index['SII_671731'] == 0 or index['OIII_5007'] == 0:
                CHI_S2O3 = tol_max
             else:
-               CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/S2O3_obs
+               CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/np.abs(S2O3_obs)
             if O2O3_obs == -10:
                CHI_O2O3 = 0
             elif index['OII_3727'] == 0 or index['OIII_5007'] == 0:
                CHI_O2O3 = tol_max
             else:
-               CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/O2O3_obs
+               CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/np.abs(O2O3_obs)
             if He12a_obs == -10:
                CHI_He12a = 0
             elif index['HeI_4471'] == 0 or index['HeII_4686'] == 0:
                CHI_He12a = tol_max
             else:
-               CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/He12a_obs
+               CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/np.abs(He12a_obs)
             if He12b_obs == -10:
                CHI_He12b = 0
             elif index['HeI_5876'] == 0 or index['HeII_4686'] == 0:
                CHI_He12b = tol_max
             else:
-               CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/He12b_obs
+               CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/np.abs(He12b_obs)
             if He12c_obs == -10:
                CHI_He12c = 0
             elif index['HeI_6678'] == 0 or index['HeII_4686'] == 0:
                CHI_He12c = tol_max
             else:
-               CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/He12c_obs
+               CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/np.abs(He12c_obs)
             if CHI_He12a == 0 and CHI_He12b == 0 and CHI_He12c == 0:
                CHI_HE12 = 0
             elif CHI_He12b >= 0:
@@ -1129,36 +1282,43 @@ for tab in range(0,len(input1),1):
             elif index['SII_671731'] == 0 or index['ArIII_7135'] == 0:
                CHI_S2Ar3 = tol_max
             else:
-               CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/S2Ar3_obs
+               CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/np.abs(S2Ar3_obs)
             if Ar3Ar4_obs == -10:
                CHI_Ar3Ar4 = 0
             elif index['ArIII_7135'] == 0 or index['ArIV_4740'] == 0:
                CHI_Ar3Ar4 = tol_max
             else:
-               CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/Ar3Ar4_obs
+               CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/np.abs(Ar3Ar4_obs)
+            if N2O3_obs == -10:
+               CHI_N2O3 = 0
+            elif index['NII_6584'] == 0 or index['OIII_5007'] == 0:
+               CHI_N2O3 = tol_max
+            else:
+               CHI_N2O3 = (np.log10(index['NII_6584']/index['OIII_5007']) - N2O3_obs)**2/np.abs(N2O3_obs)
+            if N2S3_obs == -10:
+               CHI_N2S3 = 0
+            elif index['NII_6584'] == 0 or index['SIII_9069'] == 0:
+               CHI_N2S3 = tol_max
+            else:
+               CHI_N2S3 = (np.log10(index['NII_6584']/index['SIII_9069']) - N2S3_obs)**2/np.abs(N2S3_obs)
+            if N2Ar3_obs == -10:
+               CHI_N2Ar3 = 0
+            elif index['NII_6584'] == 0 or index['ArIII_7135'] == 0:
+               CHI_N2Ar3 = tol_max
+            else:
+               CHI_N2Ar3 = (np.log10(index['NII_6584']/index['ArIII_7135']) - N2Ar3_obs)**2/np.abs(N2Ar3_obs)
 
 
 
             if OII_3727_obs == 0 and SIII_9069_obs >0:
-               CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
             elif SIII_9069_obs == 0 and OII_3727_obs > 0:
-               CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
-            elif SIII_9069_obs == 0 and OII_3727_obs > 0 and ArIII_7135_obs == 0:
-               CHI_Teff = (CHI_He12**2 + CHI_O2O3**2 + CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
-            elif SIII_9069_obs == 0 and OII_3727_obs == 0 and ArIII_7135_obs > 0:
-               CHI_Teff = (CHI_He12**2 + CHI_S2Ar3**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
+            elif SIII_9069_obs == 0 and OII_3727_obs == 0:
+               CHI_Teff = (CHI_He12**2 + CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
             else:
-               CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
+               CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
 
-
-            if OII_3727_obs == 0:
-               CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2)**0.5
-            elif SIII_9069_obs == 0 and HeII_4686_obs == 0:
-               CHI_Teff = (CHI_O2O3**2 + CHI_S2O3**2)**0.5
-            elif SIII_9069_obs == 0 and HeII_4686_obs > 0:
-               CHI_Teff = (CHI_He12**2 + CHI_O2O3**2 )**0.5
-            else:
-               CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2)**0.5
 
 
 
@@ -1172,19 +1332,22 @@ for tab in range(0,len(input1),1):
                if param == 1:
                   Teff_e = np.abs(index['Teff'] - Teff) * (1/CHI_Teff) **2+ Teff_e
                else:
-                  Teff_e = np.abs(np.log10(index['f_abs']+1e-5) - np.log10(Teff)) * (1/CHI_Teff)**2 + Teff_e
+                  Teff_e = np.abs((index['f_abs']+1e-5) - (Teff)) * (1/CHI_Teff)**2 + Teff_e
                logU_e = np.abs(index['logUsp'] - logU) * (1/CHI_Teff)**2 + logU_e         
                den_Teff_e = 1 * (1/CHI_Teff)**2 + den_Teff_e
 
 
          if Teff_e == 0:
-            eTeff = 0
+            if param == 1:
+               eTeff = 0
+            else:
+               eTeff = -10
             elogU = 0
          else:
             if param == 1:
                eTeff = Teff_e / den_Teff_e 
             else: 
-               eTeff = Teff*np.log10(eTeff)
+               eTeff = Teff_e / den_Teff_e 
             elogU = logU_e / den_Teff_e
 
 
@@ -1197,20 +1360,21 @@ for tab in range(0,len(input1),1):
          elif inter == 1:
             igrid = grid_T[np.lexsort((grid_T['12logOH'],grid_T['logUsp']))]
             if param == 1:
-               igrid = interpolate(igrid,1,Teff-eTeff-1e4,Teff+eTeff+1e4,10, param)
+               igrid = interpolate(igrid,'Teff',Teff-eTeff-eTeff/10,Teff+eTeff+eTeff/10,10, param)
                igrid = igrid[np.lexsort((igrid['12logOH'],igrid['Teff']))]
             else:
-               igrid = interpolate(igrid,1,0.01,1,10, param)
+               igrid = interpolate(igrid,'f_abs',Teff-eTeff-eTeff/20,Teff+eTeff+eTeff/20,20, param)
                igrid = igrid[np.lexsort((igrid['12logOH'],igrid['f_abs']))]
-            igrid = interpolate(igrid,2,logU-elogU-0.25,logU+elogU+0.25,10, param)
+            igrid = interpolate(igrid,'logUsp',logU-elogU-0.25,logU+elogU+0.25,10, param)
 
 #            np.savetxt('int_models.dat',igrid,fmt='%.2f')
 
 
-            if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10:
+            if S2S3_obs == -10 and O2O3_obs == -10 and He12a_obs == -10 and He12b_obs == -10 and He12c_obs == -10 and S2Ar3_obs == -10 and Ar3Ar4_obs == -10 and N2O3_obs == -10 and N2S3_obs == -10 and N2Ar3_obs == -10 and S2O3_obs == -10 and C3C4_obs == -10:
                Teff = 0
                logU = 0
             else:
+               CHI_C3C4 = 0
                CHI_O2O3 = 0
                CHI_S2S3 = 0
                CHI_S23 = 0
@@ -1221,10 +1385,17 @@ for tab in range(0,len(input1),1):
                CHI_He12 = 0
                CHI_S2Ar3 = 0
                CHI_Ar3Ar4 = 0
-
-
+               CHI_N2O3 = 0
+               CHI_N2S3 = 0
+               CHI_N2Ar3 = 0
                for index in igrid:
                   if index['HeII_4686'] == 0 and HeII_4686_obs > 0: continue
+                  if C3C4_obs == -10:
+                     CHI_C3C4 = 0
+                  elif index['CIV_1549'] == 0 or index['CIII_1909'] == 0:
+                     CHI_C3C4 = tol_max
+                  else:
+                     CHI_C3C4 = (np.log10(index['CIII_1909']/index['CIV_1549']) - C3C4_obs)**2/C3C4_obs
                   if S2S3_obs == -10:
                      CHI_S2S3 = 0
                      CHI_S23 = 0
@@ -1239,31 +1410,31 @@ for tab in range(0,len(input1),1):
                   elif index['SII_671731'] == 0 or index['OIII_5007'] == 0:
                      CHI_S2O3 = tol_max
                   else:
-                     CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/S2O3_obs
+                     CHI_S2O3 = (np.log10(index['SII_671731']/index['OIII_5007']) - S2O3_obs)**2/np.abs(S2O3_obs)
                   if O2O3_obs == -10:
                      CHI_O2O3 = 0
                   elif index['OII_3727'] == 0 or index['OIII_5007'] == 0:
                      CHI_O2O3 = tol_max
                   else:
-                     CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/O2O3_obs
+                     CHI_O2O3 = (np.log10(index['OII_3727']/index['OIII_5007']) - O2O3_obs)**2/np.abs(O2O3_obs)
                   if He12a_obs == -10:
                      CHI_He12a = 0
                   elif index['HeI_4471'] == 0 or index['HeII_4686'] == 0:
                      CHI_He12a = tol_max
                   else:
-                     CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/He12a_obs
+                     CHI_He12a = (np.log10(index['HeI_4471']/index['HeII_4686']) - He12a_obs)**2/np.abs(He12a_obs)
                   if He12b_obs == -10:
                      CHI_He12b = 0
                   elif index['HeI_5876'] == 0 or index['HeII_4686'] == 0:
                      CHI_He12b = tol_max
                   else:
-                     CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/He12b_obs
+                     CHI_He12b = (np.log10(index['HeI_5876']/index['HeII_4686']) - He12b_obs)**2/np.abs(He12b_obs)
                   if He12c_obs == -10:
                      CHI_He12c = 0
                   elif index['HeI_6678'] == 0 or index['HeII_4686'] == 0:
                      CHI_He12c = tol_max
                   else:
-                     CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/He12c_obs
+                     CHI_He12c = (np.log10(index['HeI_6678']/index['HeII_4686']) - He12c_obs)**2/np.abs(He12c_obs)
                   if CHI_He12a == 0 and CHI_He12b == 0 and CHI_He12c == 0:
                      CHI_HE12 = 0
                   elif CHI_He12b >= 0:
@@ -1277,23 +1448,41 @@ for tab in range(0,len(input1),1):
                   elif index['SII_671731'] == 0 or index['ArIII_7135'] == 0:
                      CHI_S2Ar3 = tol_max
                   else:
-                     CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/S2Ar3_obs
+                     CHI_S2Ar3 = (np.log10(index['SII_671731']/index['ArIII_7135']) - S2Ar3_obs)**2/np.abs(S2Ar3_obs)
                   if Ar3Ar4_obs == -10:
                      CHI_Ar3Ar4 = 0
                   elif index['ArIII_7135'] == 0 or index['ArIV_4740'] == 0:
                      CHI_Ar3Ar4 = tol_max
                   else:
-                     CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/Ar3Ar4_obs
+                     CHI_Ar3Ar4 = (np.log10(index['ArIII_7135']/index['ArIV_4740']) - Ar3Ar4_obs)**2/np.abs(Ar3Ar4_obs)
+                  if N2O3_obs == -10:
+                     CHI_N2O3 = 0
+                  elif index['NII_6584'] == 0 or index['OIII_5007'] == 0:
+                     CHI_N2O3 = tol_max
+                  else:
+                     CHI_N2O3 = (np.log10(index['NII_6584']/index['OIII_5007']) - N2O3_obs)**2/np.abs(N2O3_obs)
+                  if N2S3_obs == -10:
+                     CHI_N2S3 = 0
+                  elif index['NII_6584'] == 0 or index['SIII_9069'] == 0:
+                     CHI_N2S3 = tol_max
+                  else:
+                     CHI_N2S3 = (np.log10(index['NII_6584']/index['SIII_9069']) - N2S3_obs)**2/np.abs(N2S3_obs)
+                  if N2Ar3_obs == -10:
+                     CHI_N2Ar3 = 0
+                  elif index['NII_6584'] == 0 or index['ArIII_7135'] == 0:
+                     CHI_N2Ar3 = tol_max
+                  else:
+                     CHI_N2Ar3 = (np.log10(index['NII_6584']/index['ArIII_7135']) - N2Ar3_obs)**2/np.abs(N2Ar3_obs)
 
 
                   if OII_3727_obs == 0 and SIII_9069_obs >0:
-                     CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
+                     CHI_Teff = (CHI_S2S3**2 + CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
                   elif SIII_9069_obs == 0 and OII_3727_obs > 0:
-                     CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
-                  elif SIII_9069_obs == 0 and OII_3727_obs > 0 and ArIII_7135_obs == 0:
-                     CHI_Teff = (CHI_He12**2 + CHI_O2O3**2 + CHI_S2O3**2 + CHI_Ar3Ar4**2)**0.5
+                     CHI_Teff = (CHI_O2O3**2 + CHI_S2Ar3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
+                  elif SIII_9069_obs == 0 and OII_3727_obs == 0:
+                     CHI_Teff = (CHI_He12**2 +  CHI_S2O3**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
                   else:
-                     CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2)**0.5
+                     CHI_Teff = (CHI_S2S3**2 + CHI_O2O3**2 + CHI_He12**2 + CHI_Ar3Ar4**2 + CHI_N2O3**2 + CHI_N2S3**2 + CHI_N2Ar3**2 + CHI_C3C4**2)**0.5
 
                   if CHI_Teff == 0:
                      Teff_p = Teff_p
@@ -1307,7 +1496,10 @@ for tab in range(0,len(input1),1):
                      den_Teff = (1/CHI_Teff) + den_Teff
       
                if Teff_p == 0:
-                  Teff = 0
+                  if param == 1:
+                     Teff = 0
+                  else:
+                     Teff = -10
                   logU = 0
                else:
                   Teff = Teff_p / den_Teff 
@@ -1368,7 +1560,8 @@ output['elogU'] = elogUffs
 if input0.size == 1:  output = np.delete(output,obj=1,axis=0)
 
 
-lineas_header = [' HII-CHI-mistry-Teff v.5.2 output file', 'Input file:'+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type, 'Library file used : '+file_lib, '']
+
+lineas_header = [' HII-CHI-mistry-Teff v.5.4 output file', 'Input file:'+input00,'Iterations for MonteCarlo: '+str(n),'Used models: '+sed_type, 'Library file used : '+file_lib, '']
 
 line_label = '{:10}  '.format(output.dtype.names[0])
 for ind2 in range(1, len(output.dtype.names)-6):

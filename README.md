@@ -45,14 +45,19 @@ The latest version available is HII-CHI-Mistry-UV [v.5.0](https://github.com/Bor
 The latest version available is HII-CHI-Mistry-IR [v.3.01](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-ir/HCm-IR_v3.01/HCm-IR_v3.01.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Fernández-Ontiveros et al. 2021](https://ui.adsabs.harvard.edu/abs/2021A%26A...652A..23F/abstract)).
-- Version for Active Galactic Nuclei (Pérez-Díaz et al. submitted).
+- Version for Active Galactic Nuclei ([Pérez-Díaz et al. 2022](https://ui.adsabs.harvard.edu/abs/2022A%26A...666A.115P/abstract)).
 
 ### HII-CHI-Mistry effective temperature (HCm-teff)
 
+<<<<<<< HEAD
 The latest version available is HII-CHI-Mistry-Tefff [v.5.2](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.2.readme). We have released a new version of this code which takes as input infrared emission lines, HII-CHI-Mistry-Teff-IR [v2.2](). Details on the usage of the IR version can be found [here](). The code is described in the following papers:
+=======
+The latest version available is HII-CHI-Mistry-Tefff [v.5.3](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.3). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff_v5.2/HCm-Teff_v5.3.readme). The code is described in the following papers:
+>>>>>>> 755ccfc2bcc256575c1623d50952325cab461312
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract))
+- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. (2022)](https://ui.adsabs.harvard.edu/abs/2022arXiv221203216P/abstract)
 
 
 ## Inputs and outputs
@@ -66,12 +71,12 @@ The input file must be written in text format with a first row of labels indicat
 - 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3727/Hbeta and its error.
 - 'NeIII_3868' and 'eNeIII_3868': emission line ratio [NeIII] 3868/Hbeta and its error.
 - 'OIII_4363' and 'eOIII_4363': emission line ratio [OIII] 4363/Hbeta and its error.
-- 'OIII_4959' and 'eOIII_4959': emission line ratio [OIII] 4959/Hbeta and its error{1}.
-- 'OIII_5007' and 'eOIII_5007': emission line ratio [OIII] 5007/Hbeta and its error{1}.
+- 'OIII_4959' and 'eOIII_4959': emission line ratio [OIII] 4959/Hbeta and its error.<sup>[1](#myfootnote1)</sup>
+- 'OIII_5007' and 'eOIII_5007': emission line ratio [OIII] 5007/Hbeta and its error.<sup>[1](#myfootnote1)</sup>
 - 'NII_6584' and 'eNII_6584': emission line ratio [NII] 6584/Hbeta and its error.
 - 'SII_6725' and 'eSII_6725': emission line ratio [SII] 6717+6731/Hbeta and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
 
-{1} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
+<sup><a name="myfootnote1">1</a></sup> It is possible to use only one of the two strong nebular [OIII] emission lines.
 
 The above emission lines must be reddening corrected. In case no errors are provided, it is advisable not using MonteCarlo iterations at all. All comments must be placed at the beginning of the document preceded by the symbol "#".
 
@@ -141,32 +146,33 @@ The output file is also a text format, named with the original name of the input
 The input file must be written in text format with a first row of labels indicating some or all of the following columns:
 
 - 'ID': identification for each row.
-- '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error{1}.
+- '12logOH' and 'e12logOH': if known, oxygen abundance 12+log(O/H) and its error.<sup>[1](#myfootnote1)</sup>
 - 'OII_3727' and 'eOII_3727': emission line [OII] 3727 and its error.
-- 'OIII_4959' and 'eOIII_3727': emission line [OIII] 4959 and its error{2}.
-- 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error{2}.
+- 'OIII_4959' and 'eOIII_3727': emission line [OIII] 4959 and its error.<sup>[2](#myfootnote2)</sup>
+- 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error.<sup>[2](#myfootnote2)</sup>
 - 'SII_6725' and 'eSII_6725': emission line [SII] 6717+6731 and its error. It is possible to give both emission lines separated as 'SII_6717' and 'SII_6731'.
-- 'SIII_9069' and 'eSIII_9069': emission line [SIII] 9069 and its error{3}.
-- 'SIII_9532' and 'eSIII_9532': emission line [SIII] 9532 and its error{3}.
+- 'SIII_9069' and 'eSIII_9069': emission line [SIII] 9069 and its error.<sup>[3](#myfootnote3)</sup>
+- 'SIII_9532' and 'eSIII_9532': emission line [SIII] 9532 and its error.<sup>[3](#myfootnote3)</sup>
 - 'HeI_4471' and 'eHeI_4471': emission line HeI 4471 and its error.
 - 'HeI_5876' and 'eHeI_5876': emission line HeI 5876 and its error.
 - 'HeII_4686' and 'eHeII_4686': emission line HeII 4686 and its error.
 - 'ArIV_4730' and 'eAIV_4740': emission line [ArIV] 4740 and its error.
 - 'ArIII_7135' and 'eAIII_7135': emission line [ArIII] 7135 and its error.
+- 'NII_6584' and 'eNII_6584': emission line [NII] 6584 and its error.
 
-{1} **Note**: If oxygen abundances are unknown, Him will estimate them.
-{2} **Note**: It is possible to use only one of the two strong nebular [OIII] emission lines.
-{3} **Note**: It is possible to use only one of the two strong nebular [SIII] emission lines.
+<sup><a name="myfootnote1">1</a></sup> If oxygen abundances are unknown, Him will estimate them.
+<sup><a name="myfootnote2">2</a></sup> It is possible to use only one of the two strong nebular [OIII] emission lines.
+<sup><a name="myfootnote3">3</a></sup> It is possible to use only one of the two strong nebular [SIII] emission lines.
 
 The above emission lines must be reddening corrected. In case no errors are provided, it is advisable not using MonteCarlo iterations at all. All comments must be placed at the beginning of the document preceded by the symbol "#".
 
 The output file is also a text format, named with the original name of the input file and followed by the extension "_hcm-teff-output.dat". The first columns will show the information provided in the input file. In case ID column is missing, the code will automatically assign a cardinal to each row. The last seven columns show:
 
 - 'O/H' and 'eO/H': estimation or input value of the oxygen abundance 12+log(O/H) and its uncertainty.
-- 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty{4}.
+- 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty.<sup>[4](#myfootnote4)</sup>
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
-{4} **Note**: If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
+<sup><a name="myfootnote4">4</a></sup> If required, columns 'Teff' and 'eTeff' are replaced by 'f_abs' and 'ef_abs' (fraction of absorbed photons).
 
 ## Support
 
