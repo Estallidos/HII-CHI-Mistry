@@ -986,7 +986,7 @@ else:
 if Label_eOIV == False:
    eOIV_26m = np.zeros(input1.size)
 else:
-   eOIV_26m = input1['OIV_26m']
+   eOIV_26m = input1['eOIV_26m']
 if Label_SIII_33m == False:
    SIII_33m = np.zeros(input1.size)
 else:
