@@ -169,9 +169,9 @@ else:
 print ('The number of iterations for MonteCarlo simulation is: ',n)
 print ('')
 
-#############################################
+#################################################
 ###### NON INTERACTIVE OR INTERACTIVE CODE ######
-#############################################
+#################################################
 
 interactive = True #Change this value to False to run the code in non-interactive mode
 
