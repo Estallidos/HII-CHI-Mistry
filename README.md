@@ -39,7 +39,7 @@ The latest version available is HII-CHI-Mistry [v.5.4](https://github.com/Borja-
 The latest version available is HII-CHI-Mistry-UV [v.5.1](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.1). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.1/HCm-UV_v5.1.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero & Amorín 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.467.1287P/abstract)).
-- Version for Active Galactic Nuclei ([Pérez-Montero et al. (2023)](https://ui.adsabs.harvard.edu/abs/2023MNRAS.521.1556P/abstract))
+- Version for Active Galactic Nuclei ([Pérez-Montero et al. 2023](https://ui.adsabs.harvard.edu/abs/2023MNRAS.521.1556P/abstract))
 
 ### HII-CHI-Mistry infrared range (HCm-ir)
 
@@ -55,12 +55,12 @@ The latest version available is HII-CHI-Mistry-Tefff [v.5.5](https://github.com/
 
 - Version using plane-parallel or spherical geometry ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.483.3322P/abstract)).
 - Version using density-bounded models to estimate absorbed photons ([Pérez-Montero et al. 2020](https://ui.adsabs.harvard.edu/abs/2020A%26A...643A..80P/abstract)).
-- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. (2023)](https://ui.adsabs.harvard.edu/abs/2023A%26A...669A..88P/abstract).
+- Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. 2023](https://ui.adsabs.harvard.edu/abs/2023A%26A...669A..88P/abstract).
 
 
 Additionally, a new release of an infrared version of this code has been published, namely HII-CHI-Mistry-Teff-IR [v.2.3](https://github.com/Estallidos/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff-IR_v2.3). Details on its usage and list of changes can be found [here](https://github.com/Estallidos/HII-CHI-Mistry/blob/main/HCm-teff/HCm-Teff-IR_v2.3/HCm-Teff-IR_v2.3.readme). The code is described in the following paper:
 
-- Introduction to the code based on infrared emission lines ([Pérez-Montero et al. (2024)](https://ui.adsabs.harvard.edu/abs/2024A%26A...684A..40P/abstract)).
+- Introduction to the code based on infrared emission lines ([Pérez-Montero et al. 2024](https://ui.adsabs.harvard.edu/abs/2024A%26A...684A..40P/abstract)).
 
 
 ## Inputs and outputs
