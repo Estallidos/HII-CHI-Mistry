@@ -183,7 +183,7 @@ question3 = interactive #Question to use or not interpolation for the grids
 #Set values to operate
 if question1 == False:
    sed = 2 #Choose grid of models: (1) WM-Basic  (30-60 kK); (2) WM-Basic  (30-60 kK) and Rauch (80-120 kK) stellar atmospheres; (3) Black body (30-100 kK)
-if question2 == False
+if question2 == False:
    geo = 1 #Choose value for the geometry: (1) Plane-parallel geometry; (2) Spherical geometry
 if question3 == False:
    inter = 0 #Choose value to perform interpolation: (0) no interpolation; (1) interpolation.  Replace value for the given option
