@@ -28,7 +28,7 @@ HII-CHI-Mistry presents different variations depending on the spectral range ana
 
 ### HII-CHI-Mistry optical range (HCm-opt)
 
-The latest version available is HII-CHI-Mistry [v.5.4](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.4). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.4/HCm_v5.4.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry [v.5.5](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.5). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.5/HCm_v5.5.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero 2014](https://ui.adsabs.harvard.edu/abs/2014MNRAS.441.2663P/abstract)).
 - Version for Seyferts 2 ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.489.2652P/abstract)).
