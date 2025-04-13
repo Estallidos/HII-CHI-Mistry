@@ -1,0 +1,128 @@
+HII-CHI-mistry-Teff-IR version 3.0 instructions
+Enrique Pérez-Montero & Borja Pérez-Díaz 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2024 September
+
+###############################################################
+
+1. INTRODUCTION
+---------------
+
+HCm-Teff-IR-IR is a python script that helps to calculate the ionization parameter (log U) and the equivalent  effective temperature (T*) using relative emission-line fluxes emitted by ionized gaseous nebulae in the infra-red spectral range. For more information see Pérez-Montero et al. (2024). From version 3, it can also be used to derive the shape of the ionizing field of radiation in AGNs (see Pérez-Montero et al. 2025).  HII-CHI-mistry-Teff-IR has been written for python v.3 and it requires the library numpy. 
+
+###############################################################
+
+2. REQUIRED FILES
+-----------------
+
+HCm-Teff-IR  requires the files of the  emission line fluxes predicted by the models, assuming a different set of input conditions and for two different geometries. The necessary files are:
+
+- C17_WMb-IR_Teff_30-60_pp.dat
+- C17_WMb+Rauch-IR_Teff_30-120_pp.dat
+- C17_WMb+Rauch-IR_Teff_30-120_sph.dat
+- C17_WMb-IR_Teff_30-60_pp.dat
+- C17_bb-IR_Teff_30-90_pp.dat
+- C17_bb-IR_Teff_30-90_sph.dat
+
+representing  model-predicted emission-line fluxes for different SEDs and geometries as a function of log U,  and T*. All were calculated with Cloudy v.17 and WM-basic  single-star, post-AGB Rauch and black body for plane-parallel and spherical geometries.
+
+In addition, libraries for AGN models accounting for different values of the parameter alpha_OX in the range from -2.0 to -0.8, calculated for different stopping criteria (2%, 98% and 99.9%) and considering presence or absence of dust grains are also included. The corresponding files are called:
+
+- C17_agn_IR_efrac002.dat
+- C17_agn_IR_efrac002_nograins.dat
+- C17_agn_IR_efrac098.dat
+- C17_agn_IR_efrac098_nograins.dat
+- C17_agn_IR_efrac0999.dat
+- C17_agn_IR_efrac0999_nograins.dat
+
+These libraries must be stored under the folder "Libraries_teff-IR".
+
+###############################################################
+
+3. HOW TO RUN IT
+----------------
+ 
+To run the program, just type
+
+> python HCm-Teff-IR_v3.0.py
+
+It is possible to write in the same command the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm-Teff-IR_v3.0.py input.dat 100). If this last parameter is not provided the default value is 25.
+
+Once the input file has been specified in the prompt or by direct question, the code will ask for the parameter to be calculated (Teff for star-forming regions and alpha_OX for AGN). In the first case, it will later ask for the different SEDs and Teff ranges including : (1) Wm-Basic (see Pauldrach et al 2002 for mor details) with T* in te range [30000, 60000] K, (2) The same WM-Basic SEDs with the addition of Rauch post-AGB SEDs to extend the Teff range to 120,000K, and (3) Blackbody with T* in the range [30000, 100000] K. The program will later ask for the geometry of the models: (1) plane-parallel, or (2) spherical. 
+
+On the contrary, if AGN models have been chosen, the code will firstly ask for the stopping criterion (2%, 98% or 99.9%) and for the presence or absence of grain dust in the models.
+
+Finally, for both cases, the program will ask about the use of an interpolated high-resolution grid: (0) non-interpolated or (1) interpolated. This will enhance the resolution of the grid in O/H, Teff, and log U in a factor 10, but it will decrease the speed of calculation.
+
+From version 2.3 al this process can be speed up by changing in the script the variable 'interactive' from 'True' to 'False' and editing the model parameters and constrains directly in the code.
+
+
+###############################################################
+
+4. THE INPUT FILE
+-----------------
+
+It must be written in text format with a first row of labels indicating some or all of the following columns: 
+
+ID: identification name
+12logOH and e12logOH: 12+log(O/Hand error ) (if known)
+ID: Identification name for each row
+'ArII_7m' and 'eArII_7m': [ArII] 6.98 mic and its error
+'ArV_7m' and 'eArV_7m': [ArV] 7.90 mic and its error
+'ArIII_9m' and 'eArIII_9m': [ArIII] 8.99 mic and its error
+'SIV_10m' and 'eSIV_10m': [SIV] 10.5 mic and its error
+'NeII_12m' and 'eNeII_12m': [NeII] 12.8 mic and its error
+'ArV_13m' and 'eArV_13m': [ArV] 13.1 mic  and its error
+'NeV_14m' and 'eNeV_14m': [NeV] 14.3 mic  and its error
+'NeIII_15m' and 'eNeIII_15m': [NeIII] 15.5 mic  and its error
+'SIII_18m' and 'eSIII_18m': [SIII] 18.7 mic and its error
+'NeV_24m' and 'eNeV_24m': [NeV] 24.2 mic  and its error
+'OIV_25m' and 'eOIV_25m': [OIV] 25.9 mic  and its error
+'SIII_33m' and 'eSIII_33m': [SIII] 33.7 mic and ist error
+'OIII_52m' and 'eOIII_52m': [OIII] 52 mic and its error
+'NIII_57m' and 'eNIII_57m': [NII] 57 mic and its error
+'OIII_88m' and 'eOIII_88m': [OIII] 88 mic and its error
+'NII_122m' and 'eNII_122m': [NII] 122 mic and its error
+'NII_205m' and 'eNII_205m': [NII] 205 mic and its error
+
+all of them reddening corrected. If no information exists about a certain column it must typed as zero. Alternatively, if none among the rows have this line the column can be omitted. If the error is not known or if it is not going to be taken into account in the calculations,  it is advisable not using MonteCarlo iterations at all. 
+
+Regarding lines the routine will only provide a  solution if at least one low-to-high excitation is given (e.g. [NeII] and [NeIII] and/or [SIII] and [SIV]). If only two low-excitation or high-excitation lines  are given the program will provide 0 values in the results.. For AGNs these ratios are a bit different, as they must include  a very-high excitation line (e.g. [OIII]/[OIV] or [NeII]+[NeIII]/[NeV]).
+
+###############################################################
+
+5. RESULTS
+----------
+
+If the input file is correctly introduced, the program will calculate the wanted quantities and their corresponding errors. The information will be displayed on the screen for each object, along with the ratio of completeness of the task.
+
+In addition the results will be saved in a file whose name is the name of the input file adding "_HCm-Teff-IR-output.dat" containing also all the selected properties of the models.
+The first column is the identification of each row. A number will be used instead if this has not been supplied in the input file. The next columns show the emission lines introduced in the input file and their corresponding errors. The last six columns show:
+
+12+log(O/H) (either the input or the estimation made by the code)
+error of 12+log(O/H)
+effective temperature in K (Teff) )or alpha_OX for AGN)
+error of effective temperature in K (Teff) )or error of alpha_OX for AGN)
+log(U)
+error of log(U)
+
+If the code finds an error for a specific row of the input, a '9999' will inserted in the output. In this case, the user should review the input lines or contact us for possible inconsistencies.
+
+
+###############################################################
+
+6. HISTORY AND UPDATES
+
+Version 3.0 (09/2024)
+The code can be also be used to estimate the parameter alpha_OX, representative of the hardness of the incident SED in AGN. This can only be made when [NeV] and [OIV], and the corresponding ratios with the emission lines of lower ionization measured in the mid-IR are given. For more details on this see Pérez-Montero et al (2025).
+
+Version 2.3 (06/2024)
+A non-interactive mode has been incorporated to speed up the usability of the code. Besides, now, when the code finds an error in the input, it does not stop. Instead, it includes a '9999' in the output. This improves the calculations with large data samples.
+
+Version 2.2 (2023/09)
+This is the first version of the code. Based on HCm-Teff v. 5.3 for the optical and Hcm-IR v. 3.1
+
+###
+
+---------------------------
+Further questions and comments are welcome to epm@iaa.es
