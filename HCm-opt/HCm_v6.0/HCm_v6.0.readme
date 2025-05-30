@@ -1,0 +1,236 @@
+
+HII-CHI-mistry version 6.0 instructions
+Enrique Pérez-Montero & Borja Pérez-Díaz 
+Instituto de Astrofísica de Andalucía. IAA-CSIC
+2025 June
+
+###############################################################
+
+1. INTRODUCTION
+---------------
+
+HII-CHI-mistry is a python program that calculates, for gaseous nebulae ionized by massive stars or for the Narrow Line Region of Active Galactic Nuclei, the oxygen abundance in terms of 12+log(O/H), the sulphur abundance as 12+log(S/H), the nitrogen-to-oxygen ratio as log(N/O) and the ionisation parameter, as log U, from a set of optical emission-line intensities consistently with the direct method. The methodology and the results are described in Pérez-Montero 2014,MNRAS, 441, 2663. HII-CHI-mistry has been written for python v.2.7 but from version 5 it is only compatible with python 3. It requires the library numpy. 
+
+###
+
+2. REQUIRED FILES
+-----------------
+
+2.1. LIBRARIES
+
+HCm needs the files of the relative emission line intensities predicted by the models, assuming a different set of conditions. These file must be a table with the following columns (do not change the column labels):
+
+- 12+log(O/H): Oxygen abundance.
+- log(N/O): Nitrogen to Oxygen abundance.
+- log(U): ionization parameter.
+- OII_3727: The sum of emission line ratios [OII]3726/Hbeta and [OII]3728/Hbeta.
+- NeIII_3868: Emission line ratio [NeIIII]3868/Hbeta.
+- OIII_4363: Emission line ratio [OIII]4363/Hbeta.
+- OIII_5007: Emission line ratio [OIII]5007/Hbeta.
+- NII_5755: Emission line ratio [NII]5755/Hbeta.
+- SIII_6312: Emission line ratio [SIII]6312/Hbeta.
+- NII_6584: Emission line ratio [NII]6584/Hbeta.
+- SII_6717,31: The sum of emission line ratios [SII]6717/Hbeta and [SII]6731/Hbeta
+- OII_7325: The sum of emission line ratios [OII]7319/Hbeta and [OII]7330/Hbeta
+- SIII_9069: Emission line ratio [SIII]9069/Hbeta.
+- SIII_9532: Emission line ratio [SIII]9532/Hbeta.
+
+HCm provides default libraries for different astrophysical cases, including:
+
+C17_POPSTAR_1myr.dat
+
+calculated with Cloudy v.17 and a POPSTAR SED at an age of 1Myr with an IMF of Chabrier.
+
+For calculations for the NLR in AGNs it is also included those files from models computed using a double composite power-law with parameter alpha(UV) = -1.0 and alpha(OX)  ranging from  -0.8 to -2.0 in bins of 0.2. The stopping criteria for the models is based on the fraction of free electrons, which can be 2% or 98% for all AGN models. For instance, the files corresponding to a_OX = -1.2 are:
+
+C17_AGN_alpha12_efrac02_CNfix.dat (alpha(ox) = -1.2 and 2% of free electrons)
+C17_AGN_alpha12_efrac98_CNfix.dat (alpha(ox) = -1.2 and 98% of free electrons)
+
+In addition, from version 5.0 libraries from models calculated with BPASS v.2.1 with an IMF with slope -1.35, an upper mass limit of 300 solar masses and a density of 100 cm-3 is also supplied:
+
+C17_BPASS_IMF135_mup300_1myr.dat
+
+Additionally, from version 5.5 libraries calculated assuming Rauch PNe atmospheres to simulate post-AGB stars, with effective temperatures of 5e4, 1e5 and 1.5e5 K
+are also incorporated, along with additional models simulating advected-dominated flows (ADAFs, Nemmen et al. 2014) . These models are described in Pérez-Díaz et al (submitted). The corresponding library files are:
+
+C17_PAGB_T100kk_efrac02_CNfix.dat
+C17_PAGB_T100kk_efrac98_CNfix.dat
+C17_PAGB_T150kk_efrac02_CNfix.dat
+C17_PAGB_T150kk_efrac98_CNfix.dat
+C17_PAGB_T50kk_efrac02_CNfix.dat
+C17_PAGB_T50kk_efrac98_CNfix.dat
+C17_ADAF_efrac02_CNfix.dat
+C17_ADAF_efrac98_CNfix.dat
+
+Finally, from version 6.0, Additional libraries with variable S/O ratio aimed at the  calculation of S/H are also provided for the star-forming cases (POPSTAR and BPASS). The AGN libraries will be provided in forthcoming versions of the code.
+
+All these libraries and any other additional library supplied by the user must be stored under the folder "Libraries_opt". Do not delete default libraries.
+
+2.2. CONSTRAINTS
+
+When there is not enough information to independently estimate O/H, N/O and U, the code constraints the grid of models by assuming certain relations between these quantities. These relations must be indicated in the form of tables with the following columns (do not change column labels):
+
+- 12+log(O/H): Nominal value of the Oxygen abundance.
+- log(U)_min: Minimum value of the ionization parameter compatible with the 12+log(O/H).
+- log(U)_max: Maximum value of the ionization parameter compatible with the 12+log(O/H).
+- log(N/O)_min: Minimum value of the Nitrogen-to-OXygen ratio compatible with the 12+log(O/H) and the range in the ionization parameter.
+- log(N/O)_max: Maximum value of the Nitrogen-to-OXygen ratio compatible with the 12+log(O/H) and the range in the ionization parameter.
+
+and comments must be indicated with '#' at the begining of the line.
+
+The code will use this file to generate two additional files in "Libraries_opt" from the selected library. These files will be named as the library following by "_OH_U_constrained" or "_OH_U_NO_constraiend":
+
+- Library_name + "_OH_U_constrained": This file contains all the models that for a given value of 12+log(O/H), the ionization parameter is located in the range [log(U)_min, log(U)_max]. 
+
+- Library_name + "_OH_U_NO_constrained": This file contains all the models that for a given value of 12+log(O/H), the ionization parameter is located in the range [log(U)_min, log(U)_max] and log(N/O) is in the range [log(N/O)_min, log(N/O)_max]. 
+
+The code provides by default the following files:
+
+- template_OH.dat: Constraints for Star-Forming Galaxies (SFG).
+- template_OH_eelg.dat: Constraints for Extreme Emission Line Galaxies (EELG).
+- template_OH_agn.dat: Constraints for Active Galactic Nuclei (AGN).
+
+These files and any other file introduced by the user must be located under the folder "Constraints". Do not delete default files.
+
+###############################################################
+
+3. HOW TO RUN IT
+----------------
+ 
+To run the program, just type
+
+> python HCm_v6.0.py
+
+It is possible to write the name of the input file and, in a second parameter, the number of iterations for the Monte Carlo simulation. (e.g. python HCm_v6.0.py input.dat 100). If this parameter is not provided the default value is 25.
+
+Once the input file has been specified in the prompt or by direct question, the code will ask about what SED of models is going to be used: (1) Young POPSTAR massive cluster,  (2) BPASS v.2.1 young massive clusters, (3) double composite power-law AGN, (4) post-AGB stars, (5) ADAF models, or (6) any other library supplied by the user.
+
+In case that the double composite power-law AGN SED (3) is selected, the code will ask for the slope alpha(ox) which can be chosen for any value between  -0.8 and -2.0 in bins of 0.2. Regarding post-AGB stars, the code would ask for the desired effective temperature of the models between 5, 10 or 15 kK. Then, both for AGN, post-AGB, or ADAF, another question will appear to specify the stopping criterion for the models, by setting the number of free electrons in 2% or 98%.
+
+In case a different library is introduced by the user (4), the code will automatically check if the file shows the correct format. In case some of the information is missing (see Sec. 2.1), the code will warn the user about the missing columns.
+
+Then, the program will ask about the use of an interpolated high-resolution grid : (0) non-interpolated or (1) interpolated. This will enhance the resolution of the grid in O/H, N/O, and log U in a factor 10, but it will decrease the speed of calculation.
+
+Finally, the program will ask for the constraint laws that will be used to limit the grids (more details in Sec. 2): (1) Constraints for Star-Forming Galaxies (default file), (2) Constraints for Extreme Emission Line Galaxies (default file), (3) Constraints for AGN without limitation in the ionization parameter (only O/H-N/O relation is assumed), (4) Constraints for high ionization AGN (O/H-N/O relation is assumed and the ionization parameter must be log(U) >= -2.5), (5) Constraints for low ionization AGN (O/H-N/O relation is assumed and the ionization parameter must be log(U) < -2.5), or (6) any other file supplied by the user.
+
+From version 5.4 al this process can be speed up by changing in the script the variable 'interactive' from 'True' to 'False' and editing the model parameters and constrains directly in the script.
+
+In case that a different file is introduced by the user in the folder "Constraints" (6), the code will check the file for the correct format. In case some of the information is missing (see Sec. 2.2), the code will warn the user about the missing columns.
+
+After this process, the program will summarize the different grids that are going to be used and the number of models for each grid.
+
+###############################################################
+
+4. THE INPUT FILE
+-----------------
+
+It must be written in text format with a first row of labels indicating some or all of the following columns: 
+
+ID: Identification for each row
+OII_3727 and eOII_3727: [OII] 3727/Hbeta and its error
+NeIII_3868 and eNeIII_3868: [NeIII] 3868 /Hbeta and its error
+OIII_4363 and eOIII_4363: [OIII] 4363/Hbeta and its error
+OIII_4959 and eOIII_4959: [OIII] 4959/Hbeta and its error
+OIII_5007 and eOIII_5007: [OIII] 5007/Hbeta and its error (it is possible to give only one of the two strong nebular [OIII] lines)
+NII_5755 and eNII_5755: [NII] 5755/Hbeta and its error
+SIII_6312 and eSIII_6312: [SIII] 6312/Hbeta and its error
+NII_6584 and eNII_6584: [NII] 6584/Hbeta and its error
+SII_6725 and eSII_6725: [SII] 6717+6731/Hbeta and its error. It is possible to give the two [SII] lines separated
+OII_7325 and eOII_7325: [OII] 7319+7330/Hbeta and its error
+SIII_9069 and eSIII_9069: [SIII] 9069/Hbeta and its error
+SIII_9532 and eSIII_9532: [SIII] 9532/Hbeta and its error
+
+all of them reddening corrected. If no information exists about a certain line or its error, either the corresponding column can be omitted or a specific entry can typed as zero.
+
+The code can also be run in non-interactive mode, if the corresponding variable 'interactive' is set to 'False' in the script, specifying all the chosen options.
+
+###############################################################
+
+5. RESULTS
+----------
+
+If the input file is correctly introduced, the program will calculate the wanted quantities and their corresponding errors. The information will be displayed in the screen for each object, along with the ratio of completeness of the task. It will be also added an index saying what grid was used, where
+
+1: the complete grid is used (only if the ratio of a nebular-to-auroral emission-line, including [OIII], [OII], [NII], or [SIII])
+2: the log U limited grid is used (when [no available nebular-to-auroral emission-line ratio is given)
+3: the log U and N/O limited grid is used (if, besides, [NII]/[OII] and [NII]/[SII] cannot be obtained).
+
+In addition the results will be saved in a file whose name is the name of the input file adding "_hcm-output.dat".
+The first column is the identification of each row. A number will be used instead if this has not been supplied in the input file. The next columns show the emission lines introduced in the input file and their corresponding errors. The last 11 columns show:
+
+grid index 
+12+log(O/H)
+error of 12+log(O/H)
+12+log(S/H(
+error of 12+log(S/H(
+log(N/O) (-10 if grid 3 is used)
+error of log(N/O)
+log U*
+error of log(U*) (take with care if grid 2 or 3 are used)
+
+
+If the code finds an error for a specific row of the input, a '9999' will be inserted in the output. In this case, the user should review the input lines or contact us for possible inconsistencies.
+
+
+###############################################################
+
+6. HISTORY AND UPDATES
+----------------------
+
+
+Version 6.0 (06/2025)
+The code now also gives solutions for 12+log(S/H) when [SII] and [SIII] lines are provided (only for POPSTAR and BPASS models). This is done by means of additional libraries calculated using a variation of S/O in the models from -0.6 up to 0.6 dex in bins of 0.2 dex. This grid is explored in a third iteration of the code once O/H and U are calculated.. In addition, now the ionization parameter is labelled as U* to stress its dependence on the arbitrary fixed SED chosen in each model (see Pérez-Montero et al 2025b).
+
+Version 5.5 (11/2024)
+New models for AGN covering a wider range for alpha_OX and for post-AGB from Rauch and advected-dominated flows (ADAFs, Nemmen et al. 2014) have been incorporated. These models are described in Pérez-Díaz et al. (2024, submitted)
+
+Version 5.4 (06/2024)
+A non-interactive mode has been incorporated to speed up the usability of the code. Besides, now, when the code finds an error in the input, it does not stop. Instead, it includes a '9999' in the output. This improves the calculations with large data samples.
+
+- Version 5.3 (07/2023)
+The code now admits auroral lines of [NII], [OII]  and [[SIII], and the nebular optical [SIII] lines to better provide solutions with sets of emission-lines only in the red part of the spectrum. Now the emission-line ratio O3N2 is used for the calculation of N/O. 
+
+- Version 5.2 (2022/01):
+The user can now select the constraints to generate limited grids for the code. Libraries with models and constraints are stored in particular folders. Changes in the code to optimize the reading of the files. The output file no longer shows columns with emission lines that were not introduced as inputs.
+
+- Version 5.1:
+BPASS (Eldrige et al.) models have been incorporated. 
+
+- Version 5.0:
+Now it is not anymore required to give all lines in the input, but a label indicates what lines are given, including an identification one for each row.
+
+- Version 4.2:
+From this version interpolated grid of models are calculated by the code, reducing the number of required library files.
+
+- Version 4.1:
+Some code modifications to manage with errors and compatibility with python 3
+
+- Version 4.0:
+This version allows to calculate abundances for the NLR in AGNs using a double composite power law spectral energy distribution. The results and methods are discussed for this part in Pérez-montero et al (2019). Additionally the code now also uses [NeIII] 3868 Angströms emission-line to derive oxygen abundances. Finally, now the output file includes a header with useful information. For more information see Pérez-Montero et al. (2019).
+
+- Version 3.1:
+Now models have been calculated with Cloudy version 17.00
+
+- Version 3.0:
+This version and latter uses the errors of the relative intensity emission lines to take them into account in the final error calculation.This is made by means of an iteration using random gaussian distributions around the mean value (Monte-Carlo).
+The number of iterations in the Monte-Carlo simulation can be edited in the script.
+
+The interpolation mode in version 3.0 is used only when a first estimation of the results are reached. This reduces
+the space of parameters to search and hence the time of calculation.
+
+- Version 2.2:
+Version 2.2 changes the value of the parameter res_NO when the interpolated grid is used to avoid some divergences for the calculation of O/H.
+
+- Version 2.1:
+From version 2.1 HCm uses the library numpy, so asciidata is not anymore required. the results are now stored in an independent
+ascii file. Finally this version lets the user to choose a model grid of better resolution in O/H and N/O to smooth results
+around the knots of the model grid. In addition, the program uses all the models for the weighted means of the results, not just
+a subset of them as in previous versions.
+
+In relation with previous version (2.0), version 2.1 fixes two bugs: i) it does not produce an error for sets for which no abundance can be derived, and ii) it varies the size of the cells in the grid to calculate O/H from a certain N/O value when the interpolation is not used.
+
+###############################################################
+
+---------------------------
+Further questions and comments are welcome to epm@iaa.es
+

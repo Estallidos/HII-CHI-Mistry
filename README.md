@@ -28,7 +28,7 @@ HII-CHI-Mistry presents different variations depending on the spectral range ana
 
 ### HII-CHI-Mistry optical range (HCm-opt)
 
-The latest version available is HII-CHI-Mistry [v.5.5](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.5). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v5.5/HCm_v5.5.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry [v.6.0](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v6.0). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-opt/HCm_v6.0/HCm_v6.0.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero 2014](https://ui.adsabs.harvard.edu/abs/2014MNRAS.441.2663P/abstract)).
 - Version for Seyferts 2 ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.489.2652P/abstract)).
@@ -93,6 +93,7 @@ The output file is also a text format, named with the original name of the input
 
 - Grid 'i': Index of the grid employe (further details in the .readme file of the code).
 - 'O/H' and 'eO/H': estimation of the oxygen abundance 12+log(O/H) and its uncertainty.
+- 'S/H' and 'eS/H': estimation of the sulfur abundance 12+log(S/H) and is uncertaintty (only for POPSTAR models).
 - 'N/O' and 'eN/O': estimation of the nitrogen-to-oxygen abundance log(N/O) and its uncertainty.
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
