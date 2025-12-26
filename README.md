@@ -1,6 +1,6 @@
 # HII-CHI-Mistry
 
-HII-CHI-Mistry is a collection of python subroutines aimed at the calculation of chemical abundances and physical properties using emission line fluxes from ionised gaseous nebulae. Main website of the code is available [here](https://www.iaa.csic.es/~epm/HII-CHI-mistry.html).
+HII-CHI-Mistry is a collection of python subroutines aimed at the calculation of chemical abundances and physical properties using emission line fluxes from ionised gaseous nebulae. Main website of the code is available [here](https://home.iaa.csic.es/~epm/HII-CHI-mistry.html).
 
 ## Requirements
 
@@ -33,10 +33,11 @@ The latest version available is HII-CHI-Mistry [v.6.0](https://github.com/Borja-
 - Version for Star-Forming Galaxies ([Pérez-Montero 2014](https://ui.adsabs.harvard.edu/abs/2014MNRAS.441.2663P/abstract)).
 - Version for Seyferts 2 ([Pérez-Montero et al. 2019](https://ui.adsabs.harvard.edu/abs/2019MNRAS.489.2652P/abstract)).
 - Version for Low-Ionization Active Galactic Nuclei ([Pérez-Díaz et al. 2021](https://ui.adsabs.harvard.edu/abs/2021MNRAS.505.4289P/abstract)).
+- Version for the estimation of sulfur abundances in Star-Forming Galaxies ([Pérez-Montero et al. 2025b](https://ui.adsabs.harvard.edu/abs/2025OJAp....851253P/abstract))
 
 ### HII-CHI-Mistry ultraviolet range (HCm-uv)
 
-The latest version available is HII-CHI-Mistry-UV [v.5.1](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.1). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.1/HCm-UV_v5.1.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-UV [v.5.21](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.21). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.21/HCm-UV_v5.21.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero & Amorín 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.467.1287P/abstract)).
 - Version for Active Galactic Nuclei ([Pérez-Montero et al. 2023](https://ui.adsabs.harvard.edu/abs/2023MNRAS.521.1556P/abstract))
@@ -61,6 +62,7 @@ The latest version available is HII-CHI-Mistry-Tefff [v.5.5](https://github.com/
 Additionally, a new release of an infrared version of this code has been published, namely HII-CHI-Mistry-Teff-IR [v.2.3](https://github.com/Estallidos/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff-IR_v2.3). Details on its usage and list of changes can be found [here](https://github.com/Estallidos/HII-CHI-Mistry/blob/main/HCm-teff/HCm-Teff-IR_v2.3/HCm-Teff-IR_v2.3.readme). The code is described in the following paper:
 
 - Introduction to the code based on infrared emission lines ([Pérez-Montero et al. 2024](https://ui.adsabs.harvard.edu/abs/2024A%26A...684A..40P/abstract)).
+- Infrared version for the estimation of the AGN components ([Pérez-Montero et al. 2025a](https://ui.adsabs.harvard.edu/abs/2025A%26A...696A.229P/abstract))
 
 
 ## Inputs and outputs
@@ -223,6 +225,12 @@ The output file is also a text format, named with the original name of the input
 - 'Teff' and 'eTeff': estimation of the effective temperature in K and its uncertainty.
 - 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
 
+If the AGN version is chosen instead, the outputs are:
+
+- 'O/H' and 'eO/H': estimation or input value of the oxygen abundance 12+log(O/H) and its uncertainty.
+- 'a_OX' and 'ea_OX': estimation of the a(OX) slope in the AGN SED.
+- 'U' and 'eU': estimation of the ionisation parameter log(U) and its uncertainty.
+
 ## Non-interactive mode
 
 The latest versions of the code allow the user to implement a non-interactive mode that allows the code to be implemented within any other python script. All the details in the selection of the model must be modified within the python script. For example, in the optical version the variables that must be modified are:
@@ -271,5 +279,5 @@ This program has been made thanks to the financial support from the Spanish AYA 
 Further questions, comments and suggestions are welcome to:
 
 - Enrique Pérez-Montero | Pronouns: he/his | Affiliation: [IAA-CSIC](https://www.iaa.csic.es) | Publications: [List](https://ui.adsabs.harvard.edu/search/q=%20%20author%3A%22Perez-Montero%2C%20E.%22&sort=date%20desc%2C%20bibcode%20desc&p_=0) | Mail: [epm[at]iaa.es](mailto:epm@iaa.es)
-- Borja Pérez-Díaz | Pronouns: he/his | Affiliation: [IAA-CSIC](https://www.iaa.csic.es) | Publications: [List](https://ui.adsabs.harvard.edu/search/q=%20%20author%3A%22Perez-Diaz%2C%20Borja%22&sort=date%20desc%2C%20bibcode%20desc&p_=0) | Mail: [bperez[at]iaa.es](mailto:bperez@iaa.es)
+- Borja Pérez-Díaz | Pronouns: he/his | Affiliation: [OAR-INAF](https://www.oa-roma.inaf.it) | Publications: [List](https://ui.adsabs.harvard.edu/search/q=%20%20author%3A%22Perez-Diaz%2C%20Borja%22&sort=date%20desc%2C%20bibcode%20desc&p_=0) | Mail: [borja.perezdiaz[at]inaf.it](mailto:borja.perezdiaz@inaf.it)
 - Juan Antonio Fernández-Ontiveros | Pronouns: he/his | Affiliation: [CEFCA](https://www.cefca.es) | Publications: [List](https://ui.adsabs.harvard.edu/search/q=%20%20author%3A%22Fernandez-Ontiveros%22&sort=date%20desc%2C%20bibcode%20desc&p_=0) | Mail: [j.a.fernandez.ontiveros[at]gmail.com](mailto:j.a.fernandez.ontiveros@gmail.com)
