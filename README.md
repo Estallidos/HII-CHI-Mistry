@@ -59,7 +59,7 @@ The latest version available is HII-CHI-Mistry-Tefff [v.5.5](https://github.com/
 - Latest version accepting as input [NII] emission lines, as explained in [Pérez-Montero et al. 2023](https://ui.adsabs.harvard.edu/abs/2023A%26A...669A..88P/abstract).
 
 
-Additionally, a new release of an infrared version of this code has been published, namely HII-CHI-Mistry-Teff-IR [v.2.3](https://github.com/Estallidos/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff-IR_v2.3). Details on its usage and list of changes can be found [here](https://github.com/Estallidos/HII-CHI-Mistry/blob/main/HCm-teff/HCm-Teff-IR_v2.3/HCm-Teff-IR_v2.3.readme). The code is described in the following paper:
+Additionally, a new release of an infrared version of this code has been published, namely HII-CHI-Mistry-Teff-IR [v.3.0](https://github.com/Estallidos/HII-CHI-Mistry/tree/main/HCm-teff/HCm-Teff-IR_v3.0). Details on its usage and list of changes can be found [here](https://github.com/Estallidos/HII-CHI-Mistry/blob/main/HCm-teff/HCm-Teff-IR_v3.0/HCm-Teff-IR_v3.0.readme). The code is described in the following paper:
 
 - Introduction to the code based on infrared emission lines ([Pérez-Montero et al. 2024](https://ui.adsabs.harvard.edu/abs/2024A%26A...684A..40P/abstract)).
 - Infrared version for the estimation of the AGN components ([Pérez-Montero et al. 2025a](https://ui.adsabs.harvard.edu/abs/2025A%26A...696A.229P/abstract))
