@@ -110,9 +110,9 @@ The input file must be written in text format with a first row of labels indicat
 - 'HeII_1640' and 'eHeII_1640': emission line HeII 1640 and its error.
 - 'OIII_1665' and 'eOIII_1665': emission line OIII] 1665 and its error.
 - 'CIII_1909' and 'eCIII_1909': emission line CIII 1909 and its error.
-- 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3726+3729 and its error.
-- 'NeIII_3868' and 'eNeIII_3868': emission line ratio [NeIII] 3868 and its error.
-- 'OIII_4363' and 'eOIII_4363': emission line ratio [OIII] 4363and its error.
+- 'OII_3727' and 'eOII_3727': emission line [OII] 3726+3729 and its error.
+- 'NeIII_3868' and 'eNeIII_3868': emission line [NeIII] 3868 and its error.
+- 'OIII_4363' and 'eOIII_4363': emission line [OIII] 4363and its error.
 - 'Hb_4861' and 'eHb_4861': emission line Hb HI 4861 and its error.
 - 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error.
 
