@@ -37,7 +37,7 @@ The latest version available is HII-CHI-Mistry [v.6.0](https://github.com/Borja-
 
 ### HII-CHI-Mistry ultraviolet range (HCm-uv)
 
-The latest version available is HII-CHI-Mistry-UV [v.5.21](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.21). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.21/HCm-UV_v5.21.readme). The code is described in the following papers:
+The latest version available is HII-CHI-Mistry-UV [v.5.3](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.3). Details on its usage and list of changes can be found [here](https://github.com/Borja-Perez-Diaz/HII-CHI-Mistry/tree/main/HCm-uv/HCm-UV_v5.3/HCm-UV_v5.3.readme). The code is described in the following papers:
 
 - Version for Star-Forming Galaxies ([Pérez-Montero & Amorín 2017](https://ui.adsabs.harvard.edu/abs/2017MNRAS.467.1287P/abstract)).
 - Version for Active Galactic Nuclei ([Pérez-Montero et al. 2023](https://ui.adsabs.harvard.edu/abs/2023MNRAS.521.1556P/abstract))
@@ -73,7 +73,7 @@ Additionally, a new release of an infrared version of this code has been publish
 The input file must be written in text format with a first row of labels indicating some or all of the following columns:
 
 - 'ID': identification for each row.
-- 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3726+3729/Hbetaand its error.
+- 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3726+3729/Hbeta and its error.
 - 'NeIII_3868' and 'eNeIII_3868': emission line ratio [NeIII] 3868/Hbeta and its error.
 - 'OIII_4363' and 'eOIII_4363': emission line ratio [OIII] 4363/Hbeta and its error.
 - 'OIII_4959' and 'eOIII_4959': emission line ratio [OIII] 4959/Hbeta and its error.<sup>[1](#myfootnote1)</sup>
@@ -110,6 +110,9 @@ The input file must be written in text format with a first row of labels indicat
 - 'HeII_1640' and 'eHeII_1640': emission line HeII 1640 and its error.
 - 'OIII_1665' and 'eOIII_1665': emission line OIII] 1665 and its error.
 - 'CIII_1909' and 'eCIII_1909': emission line CIII 1909 and its error.
+- 'OII_3727' and 'eOII_3727': emission line ratio [OII] 3726+3729 and its error.
+- 'NeIII_3868' and 'eNeIII_3868': emission line ratio [NeIII] 3868 and its error.
+- 'OIII_4363' and 'eOIII_4363': emission line ratio [OIII] 4363and its error.
 - 'Hb_4861' and 'eHb_4861': emission line Hb HI 4861 and its error.
 - 'OIII_5007' and 'eOIII_5007': emission line [OIII] 5007 and its error.
 
